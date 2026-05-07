@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEAM O7 — Innovating with Vision, Rooted in Wisdom</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#FFD700;--gold-light:#FFE566;--gold-dim:#C8A800;
+  --royal:#1E3A8A;--royal-bright:#3B82F6;--navy:#020C1E;--navy-mid:#041228;--navy-light:#071D3E;
+  --text-bright:#EEF2FF;--text-muted:#8BA3CC;
+  --card-bg:rgba(7,29,62,0.82);--border-gold:rgba(255,215,0,0.22);
+  --green:#4ade80;--red:#f87171;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--text-bright);font-family:'Nunito',sans-serif;overflow-x:hidden;line-height:1.6}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--navy)}::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:3px}
+
+/* ── Background ── */
+#starfield{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 20% 20%,rgba(30,58,138,.3) 0%,transparent 55%),
+             radial-gradient(ellipse at 80% 70%,rgba(59,130,246,.1) 0%,transparent 50%),var(--navy)}
+#starfield canvas{position:absolute;inset:0}
+#watermark{position:fixed;inset:0;pointer-events:none;z-index:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.wm-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:5vw;transform:rotate(-20deg);width:160%;opacity:.028;user-select:none}
+.wm-item{display:flex;flex-direction:column;align-items:center;gap:.4rem;font-family:'Cinzel Decorative',serif;font-size:clamp(.5rem,1.1vw,.8rem);letter-spacing:.15em;color:var(--gold);white-space:nowrap}
+.wm-item svg{width:clamp(22px,2.8vw,40px);height:clamp(22px,2.8vw,40px)}
+
+/* ── Nav ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 4vw;display:flex;align-items:center;
+  justify-content:space-between;height:64px;background:rgba(2,8,20,.95);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border-gold)}
+.nav-logo{font-family:'Cinzel Decorative',serif;font-size:1.2rem;font-weight:900;
+  background:linear-gradient(135deg,var(--gold),var(--royal-bright));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.1em;text-decoration:none}
+.nav-links{display:flex;gap:1.3rem;list-style:none}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:.74rem;letter-spacing:.07em;
+  text-transform:uppercase;font-weight:600;transition:color .25s;white-space:nowrap}
+.nav-links a:hover{color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:.7rem}
+.admin-btn{padding:.33rem .85rem;border:1px solid var(--border-gold);background:transparent;color:var(--gold);
+  font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+  border-radius:2px;transition:all .3s;white-space:nowrap}
+.admin-btn:hover{background:rgba(255,215,0,.1);box-shadow:0 0 12px rgba(255,215,0,.15)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;flex-shrink:0}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--gold);margin:5px 0}
+
+/* ── Section Base ── */
+section{position:relative;z-index:1;padding:100px 6vw 80px}
+.section-label{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--royal-bright);margin-bottom:.6rem;display:flex;align-items:center;gap:.8rem}
+.section-label::before{content:'';display:inline-block;width:28px;height:1px;background:var(--royal-bright)}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.7rem,3.2vw,2.8rem);font-weight:700;
+  line-height:1.2;color:var(--text-bright);margin-bottom:1rem}
+.section-title span{background:linear-gradient(135deg,var(--gold),var(--royal-bright));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-subtitle{color:var(--text-muted);font-size:.95rem;line-height:1.75;max-width:600px;margin-bottom:2.5rem}
+.divider{width:70px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:1rem 0 2.2rem}
+.ornament{text-align:center;font-size:1.3rem;color:var(--gold);opacity:.3;margin:0 0 2rem;letter-spacing:.5rem}
+
+/* ── Hero ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:120px 6vw 80px;overflow:hidden}
+.hero-chakra{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(700px,90vw);height:min(700px,90vw);pointer-events:none}
+.chakra-ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid;transform:translate(-50%,-50%)}
+.cr1{width:280px;height:280px;border-color:rgba(255,215,0,.15);animation:spinCW 60s linear infinite}
+.cr2{width:400px;height:400px;border-color:rgba(59,130,246,.12);animation:spinCCW 80s linear infinite}
+.cr3{width:540px;height:540px;border-color:rgba(30,58,138,.18);animation:spinCW 100s linear infinite}
+.cr4{width:700px;height:700px;border-color:rgba(255,215,0,.06);animation:spinCCW 130s linear infinite}
+@keyframes spinCW{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes spinCCW{to{transform:translate(-50%,-50%) rotate(-360deg)}}
+.hero-om{font-size:clamp(3rem,8vw,6rem);color:var(--gold);opacity:.12;position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-52%);font-family:serif;animation:pulseGlow 4s ease-in-out infinite;pointer-events:none}
+@keyframes pulseGlow{0%,100%{opacity:.1;text-shadow:0 0 20px var(--gold)}50%{opacity:.22;text-shadow:0 0 60px var(--gold),0 0 100px var(--royal-bright)}}
+.hero-content{position:relative;z-index:2}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--royal-bright);margin-bottom:1.2rem;animation:fadeUp .8s ease both}
+.hero-title{font-family:'Cinzel Decorative',serif;font-size:clamp(2.8rem,9vw,7rem);font-weight:900;line-height:1;
+  letter-spacing:.05em;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 40%,var(--royal-bright) 70%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 40px rgba(255,215,0,.35));animation:fadeUp .8s .15s ease both;margin-bottom:.4rem}
+.hero-tagline{font-size:clamp(.95rem,2vw,1.2rem);color:var(--text-muted);letter-spacing:.08em;max-width:520px;
+  margin:0 auto 2.5rem;animation:fadeUp .8s .3s ease both;font-style:italic;font-weight:300}
+.hero-cta{display:inline-flex;align-items:center;gap:.7rem;padding:.8rem 2rem;border:1px solid var(--gold);
+  border-radius:2px;font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;background:rgba(255,215,0,.05);transition:all .3s;animation:fadeUp .8s .45s ease both}
+.hero-cta:hover{background:rgba(255,215,0,.12);box-shadow:0 0 24px rgba(255,215,0,.2)}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;
+  flex-direction:column;align-items:center;gap:.5rem;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted)}
+.scroll-line{width:1px;height:44px;background:linear-gradient(180deg,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+
+/* ── Mission ── */
+#mission{background:linear-gradient(180deg,transparent,rgba(4,18,40,.6),transparent)}
+.mission-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.mission-star{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.star-svg{width:min(300px,80vw);filter:drop-shadow(0 0 30px rgba(255,215,0,.3));animation:starFloat 5s ease-in-out infinite}
+@keyframes starFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.star-center-text{position:absolute;text-align:center;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.12em;color:var(--gold);line-height:1.6}
+.value-list{list-style:none;margin-top:1.5rem}
+.value-list li{display:flex;align-items:flex-start;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--border-gold);color:var(--text-bright);font-size:.92rem;line-height:1.55}
+.value-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+
+/* ── Team ── */
+#team{background:rgba(7,29,62,.4)}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1.4rem}
+.member-card{background:var(--card-bg);border:1px solid var(--border-gold);border-radius:4px;padding:2rem 1.5rem;
+  text-align:center;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.member-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s}
+.member-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(255,215,0,.1)}
+.member-card:hover::before{transform:scaleX(1)}
+.member-avatar{width:68px;height:68px;border-radius:50%;border:2px solid var(--gold);
+  background:linear-gradient(135deg,var(--navy-light),var(--royal));margin:0 auto 1.1rem;
+  display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:1.2rem;font-weight:700;color:var(--gold);box-shadow:0 0 16px rgba(255,215,0,.18)}
+.member-name{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;color:var(--text-bright)}
+.member-symbol{font-size:1.4rem;margin-bottom:.6rem}
+
+/* ── Directory ── */
+.dir-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem}
+.dir-card{background:var(--card-bg);border:1px solid var(--border-gold);border-radius:4px;padding:1.7rem;transition:box-shadow .3s}
+.dir-card:hover{box-shadow:0 8px 32px rgba(59,130,246,.15)}
+.dir-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.1rem;padding-bottom:.9rem;border-bottom:1px solid var(--border-gold)}
+.dir-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--royal),var(--navy-light));
+  border:1.5px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-weight:700;font-size:.88rem;color:var(--gold);flex-shrink:0}
+.dir-name{font-family:'Cinzel',serif;font-size:.93rem;font-weight:600;color:var(--text-bright)}
+.dir-item{display:flex;align-items:flex-start;gap:.7rem;font-size:.82rem;color:var(--text-muted);margin-bottom:.55rem}
+.dir-item-icon{font-size:.95rem;flex-shrink:0;margin-top:.05rem}
+.dir-item a{color:var(--royal-bright);text-decoration:none;word-break:break-all;transition:color .2s}
+.dir-item a:hover{color:var(--gold)}
+
+/* ── How to Work With ── */
+#workwith{background:rgba(4,18,40,.5)}
+.workwith-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.4rem}
+.ww-card{background:var(--card-bg);border:1px solid var(--border-gold);border-radius:4px;padding:1.7rem;transition:transform .3s}
+.ww-card:hover{transform:translateY(-4px)}
+.ww-name{font-family:'Cinzel',serif;font-size:.98rem;font-weight:700;color:var(--gold);margin-bottom:1rem}
+.ww-items{list-style:none}
+.ww-items li{font-size:.83rem;color:var(--text-bright);padding:.42rem 0;border-bottom:1px solid rgba(255,215,0,.07);display:flex;align-items:flex-start;gap:.7rem}
+.ww-items li:last-child{border:none}
+.ww-dot{width:5px;height:5px;border-radius:50%;background:var(--royal-bright);flex-shrink:0;margin-top:.45rem}
+
+/* ── Projects ── */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:1.5rem}
+.proj-card{background:var(--card-bg);border:1px solid var(--border-gold);border-radius:4px;padding:1.9rem;
+  position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.proj-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--royal-bright));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.proj-card:hover{transform:translateY(-5px);box-shadow:0 18px 55px rgba(59,130,246,.14)}
+.proj-card:hover::after{transform:scaleX(1)}
+.proj-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .85rem;border-radius:999px;
+  font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:1.1rem}
+.badge-completed{background:rgba(74,222,128,.12);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.badge-ongoing{background:rgba(59,130,246,.12);color:var(--royal-bright);border:1px solid rgba(59,130,246,.3)}
+.proj-title{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:700;color:var(--text-bright);margin-bottom:.65rem}
+.proj-desc{font-size:.86rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem}
+.tech-stack{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.9rem}
+.tech-tag{padding:.22rem .65rem;background:rgba(30,58,138,.3);border:1px solid rgba(59,130,246,.3);
+  border-radius:2px;font-size:.67rem;color:#93c5fd;letter-spacing:.04em}
+.proj-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;color:var(--royal-bright);
+  text-decoration:none;margin-bottom:.75rem;transition:color .2s}
+.proj-link:hover{color:var(--gold)}
+.proj-actions{display:flex;gap:.5rem;padding-top:.75rem;border-top:1px solid var(--border-gold);flex-wrap:wrap}
+
+/* ── Dashboard ── */
+#dashboard{background:rgba(7,29,62,.4)}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem;margin-bottom:2.5rem}
+.dash-stat{background:var(--card-bg);border:1px solid var(--border-gold);border-radius:4px;padding:1.5rem;text-align:center}
+.dash-stat-num{font-family:'Cinzel Decorative',serif;font-size:2.1rem;font-weight:900;
+  background:linear-gradient(135deg,var(--gold),var(--royal-bright));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:.3rem}
+.dash-stat-label{font-size:.74rem;color:var(--text-muted);letter-spacing:.12em;text-transform:uppercase}
+.tool-links{display:flex;flex-wrap:wrap;gap:.9rem}
+.tool-link{display:flex;align-items:center;gap:.75rem;padding:.9rem 1.3rem;background:var(--card-bg);
+  border:1px solid var(--border-gold);border-radius:4px;text-decoration:none;color:var(--text-bright);
+  font-size:.84rem;font-weight:600;transition:all .3s;flex:1 1 148px;justify-content:center}
+.tool-link:hover{border-color:var(--gold);color:var(--gold);box-shadow:0 0 14px rgba(255,215,0,.1)}
+.tool-icon{font-size:1.3rem}
+.tool-link-disabled{opacity:.45;cursor:default}
+.tool-link-disabled:hover{border-color:var(--border-gold);color:var(--text-bright);box-shadow:none}
+
+/* ── Launch ── */
+#launch{background:linear-gradient(135deg,rgba(4,18,40,.7),rgba(7,29,62,.8))}
+.launch-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.launch-globe{width:min(280px,65vw);height:min(280px,65vw);border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,rgba(59,130,246,.25),rgba(30,58,138,.2),var(--navy-mid));
+  border:1px solid rgba(59,130,246,.3);display:flex;align-items:center;justify-content:center;
+  font-size:clamp(3.5rem,10vw,6rem);box-shadow:0 0 60px rgba(59,130,246,.2),inset 0 0 40px rgba(30,58,138,.15);
+  animation:globePulse 4s ease-in-out infinite;margin:auto}
+@keyframes globePulse{0%,100%{box-shadow:0 0 60px rgba(59,130,246,.2),inset 0 0 40px rgba(30,58,138,.15)}50%{box-shadow:0 0 100px rgba(59,130,246,.35),inset 0 0 60px rgba(255,215,0,.08)}}
+.launch-url{font-family:'Cinzel',serif;font-size:clamp(1.3rem,2.8vw,2rem);font-weight:700;margin-bottom:.9rem}
+.launch-url a{background:linear-gradient(135deg,var(--gold),var(--royal-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.launch-desc{font-size:.95rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.4rem}
+.launch-features{list-style:none}
+.launch-features li{display:flex;align-items:center;gap:.8rem;color:var(--text-bright);font-size:.88rem;padding:.48rem 0;border-bottom:1px solid var(--border-gold)}
+.lf-icon{color:var(--gold)}
+
+/* ── Roadmap ── */
+.future-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.roadmap{position:relative;padding-left:2rem}
+.roadmap::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,var(--gold),var(--royal-bright),transparent)}
+.roadmap-item{position:relative;padding:0 0 2.2rem 2rem}
+.roadmap-item::before{content:'';position:absolute;left:-5px;top:6px;width:10px;height:10px;
+  border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.roadmap-phase{font-size:.67rem;letter-spacing:.2em;text-transform:uppercase;color:var(--royal-bright);margin-bottom:.35rem;font-family:'Cinzel',serif}
+.roadmap-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--text-bright);margin-bottom:.4rem}
+.roadmap-desc{font-size:.86rem;color:var(--text-muted);line-height:1.7}
+.roadmap-del{margin-top:.5rem;display:none}
+.admin-mode .roadmap-del{display:block}
+
+/* ── Gallery ── */
+.gallery-upload-area{border:2px dashed var(--border-gold);border-radius:4px;padding:2.2rem;text-align:center;
+  margin-bottom:1.8rem;cursor:pointer;transition:all .3s;background:var(--card-bg);position:relative}
+.gallery-upload-area:hover,.gallery-upload-area.dragover{border-color:var(--gold);background:rgba(255,215,0,.04)}
+.gallery-upload-area input[type=file]{display:none}
+.gallery-upload-icon{font-size:2.2rem;margin-bottom:.7rem}
+.gallery-upload-text{font-family:'Cinzel',serif;font-size:.82rem;color:var(--text-muted);letter-spacing:.1em}
+.gallery-hint{font-size:.72rem;color:rgba(139,163,204,.4);margin-top:.35rem}
+.gallery-lock-notice{font-size:.78rem;color:var(--text-muted);margin-top:.6rem;font-style:italic}
+.gallery-upload-area.locked{opacity:.55;cursor:not-allowed}
+.gallery-upload-area.locked:hover{border-color:var(--border-gold);background:var(--card-bg)}
+.gallery-grid{columns:3;column-gap:1rem}
+.gallery-item{break-inside:avoid;margin-bottom:1rem;border-radius:4px;overflow:hidden;border:1px solid var(--border-gold);position:relative}
+.gallery-item img{width:100%;display:block;transition:transform .4s;cursor:pointer}
+.gallery-item:hover img{transform:scale(1.03)}
+.gallery-overlay{position:absolute;inset:0;background:rgba(2,8,20,.78);display:flex;
+  align-items:center;justify-content:center;opacity:0;transition:opacity .3s;gap:.7rem;flex-wrap:wrap;padding:.5rem}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-caption{font-size:.7rem;color:var(--text-muted);text-align:center;padding:.35rem .6rem;background:rgba(5,10,26,.92)}
+.gallery-caption-edit{width:100%;background:transparent;border:none;border-bottom:1px dashed rgba(255,215,0,.3);
+  color:var(--text-bright);font-family:'Nunito',sans-serif;font-size:.7rem;text-align:center;padding:.25rem;outline:none}
+
+/* ── Resources ── */
+#resources{background:rgba(7,29,62,.4)}
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:.9rem}
+.resource-card{background:var(--card-bg);border:1px solid var(--border-gold);border-radius:4px;padding:1.4rem;
+  display:flex;align-items:flex-start;gap:.9rem;color:var(--text-bright);transition:all .3s}
+.resource-card:hover{border-color:var(--gold);box-shadow:0 0 18px rgba(255,215,0,.08);transform:translateX(3px)}
+.resource-icon{font-size:1.7rem;flex-shrink:0}
+.resource-name{font-family:'Cinzel',serif;font-size:.87rem;font-weight:600;margin-bottom:.2rem}
+.resource-type{font-size:.7rem;color:var(--royal-bright);text-transform:uppercase;letter-spacing:.1em}
+.resource-open{font-size:.7rem;color:var(--royal-bright);text-decoration:none;display:block;margin-top:.3rem;transition:color .2s}
+.resource-open:hover{color:var(--gold)}
+.resource-del{display:none;flex-shrink:0;align-self:center}
+.admin-mode .resource-del{display:block}
+
+/* ── Footer ── */
+footer{position:relative;z-index:1;background:rgba(5,10,26,.97);border-top:1px solid var(--border-gold);padding:4rem 6vw 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-desc{font-size:.86rem;color:var(--text-muted);line-height:1.7;max-width:280px}
+.footer-heading{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:.65rem}
+.footer-links a{color:var(--text-muted);text-decoration:none;font-size:.86rem;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.social-links{display:flex;gap:.9rem;margin-top:1.2rem;flex-wrap:wrap}
+.social-link{width:36px;height:36px;border-radius:50%;border:1px solid var(--border-gold);
+  display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.95rem;transition:all .3s}
+.social-link:hover{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,.2);transform:translateY(-3px)}
+.footer-bottom{padding-top:2rem;border-top:1px solid var(--border-gold);display:flex;
+  justify-content:space-between;align-items:center;font-size:.76rem;color:var(--text-muted);flex-wrap:wrap;gap:1rem}
+.footer-bottom .co{color:var(--gold)}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   LOGIN MODAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#loginModal{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;
+  background:rgba(2,8,20,.92);backdrop-filter:blur(8px)}
+#loginModal.open{display:flex}
+.login-box{background:rgba(7,29,62,.98);border:1px solid var(--border-gold);border-radius:6px;
+  padding:2.5rem 2rem;width:min(380px,92vw);text-align:center;
+  box-shadow:0 0 60px rgba(255,215,0,.08),0 0 120px rgba(59,130,246,.06)}
+.login-logo{font-family:'Cinzel Decorative',serif;font-size:1.5rem;font-weight:900;
+  background:linear-gradient(135deg,var(--gold),var(--royal-bright));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.4rem}
+.login-sub{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:2rem;font-family:'Cinzel',serif}
+.login-label{font-size:.72rem;color:var(--text-muted);text-align:left;display:block;margin-bottom:.3rem;letter-spacing:.06em}
+.login-input{width:100%;background:rgba(2,8,20,.85);border:1px solid rgba(255,215,0,.2);border-radius:2px;
+  padding:.6rem .85rem;color:var(--text-bright);font-family:'Nunito',sans-serif;font-size:.9rem;
+  transition:border-color .2s;margin-bottom:1rem}
+.login-input:focus{outline:none;border-color:var(--gold)}
+.login-btn{width:100%;padding:.7rem;border:1px solid var(--gold);background:rgba(255,215,0,.08);
+  color:var(--gold);font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.15em;
+  text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .3s;margin-bottom:.8rem}
+.login-btn:hover{background:rgba(255,215,0,.18);box-shadow:0 0 20px rgba(255,215,0,.15)}
+.login-cancel{background:none;border:none;color:var(--text-muted);font-size:.75rem;cursor:pointer;
+  font-family:'Nunito',sans-serif;transition:color .2s}
+.login-cancel:hover{color:var(--gold)}
+.login-err{font-size:.75rem;color:var(--red);margin-bottom:.8rem;min-height:1rem;font-style:italic}
+.login-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .8rem;
+  background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);border-radius:999px;
+  font-size:.65rem;color:var(--green);letter-spacing:.1em;text-transform:uppercase;font-family:'Cinzel',serif;margin-bottom:1rem}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ADMIN PANEL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#adminPanel{position:fixed;inset:0;z-index:9999;display:none;pointer-events:none}
+#adminPanel.open{display:block;pointer-events:all}
+#adminOverlay{position:absolute;inset:0;background:rgba(2,8,20,.6);backdrop-filter:blur(4px)}
+#adminDrawer{position:absolute;right:0;top:0;bottom:0;width:min(500px,96vw);background:rgba(3,12,32,.99);
+  border-left:1px solid var(--border-gold);overflow-y:auto;display:flex;flex-direction:column;
+  scrollbar-width:thin}
+.admin-header{padding:1.5rem 1.5rem 1rem;border-bottom:1px solid var(--border-gold);
+  display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;
+  background:rgba(3,12,32,.99);z-index:2}
+.admin-header-left{display:flex;flex-direction:column;gap:.25rem}
+.admin-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold)}
+.admin-logged-as{font-size:.68rem;color:var(--green);letter-spacing:.06em}
+.admin-header-right{display:flex;gap:.5rem;align-items:center}
+.admin-logout{background:none;border:1px solid rgba(239,68,68,.35);color:var(--red);
+  font-size:.62rem;padding:.28rem .65rem;border-radius:2px;cursor:pointer;font-family:'Cinzel',serif;
+  letter-spacing:.08em;text-transform:uppercase;transition:all .2s}
+.admin-logout:hover{background:rgba(239,68,68,.1)}
+.admin-close{background:none;border:none;color:var(--text-muted);font-size:1.3rem;cursor:pointer;
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all .2s}
+.admin-close:hover{color:var(--gold);background:rgba(255,215,0,.08)}
+.admin-body{padding:.8rem 1.2rem 3rem;display:flex;flex-direction:column;gap:.5rem}
+
+/* Accordion */
+.acc-item{border:1px solid var(--border-gold);border-radius:4px;overflow:hidden;background:rgba(2,8,20,.45)}
+.acc-header{width:100%;background:none;border:none;padding:.9rem 1.1rem;display:flex;
+  align-items:center;justify-content:space-between;cursor:pointer;transition:background .2s;text-align:left}
+.acc-header:hover{background:rgba(255,215,0,.04)}
+.acc-header-left{display:flex;align-items:center;gap:.7rem}
+.acc-icon{font-size:1rem}
+.acc-label{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--royal-bright)}
+.acc-arrow{font-size:.75rem;color:var(--text-muted);transition:transform .3s;flex-shrink:0}
+.acc-item.open .acc-arrow{transform:rotate(180deg)}
+.acc-item.open .acc-header{background:rgba(255,215,0,.04);border-bottom:1px solid var(--border-gold)}
+.acc-body{display:none;padding:1rem 1.1rem 1.1rem;animation:accOpen .2s ease}
+.acc-item.open .acc-body{display:block}
+@keyframes accOpen{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+.af{margin-bottom:.75rem}
+.af label{display:block;font-size:.7rem;color:var(--text-muted);margin-bottom:.26rem}
+.af input,.af textarea,.af select{width:100%;background:rgba(2,8,20,.85);border:1px solid rgba(255,215,0,.17);
+  border-radius:2px;padding:.46rem .7rem;color:var(--text-bright);font-family:'Nunito',sans-serif;
+  font-size:.82rem;transition:border-color .2s;resize:vertical}
+.af input:focus,.af textarea:focus,.af select:focus{outline:none;border-color:var(--gold)}
+.af select option{background:var(--navy-light)}
+.btn-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem}
+.btn{padding:.45rem 1rem;border-radius:2px;font-family:'Cinzel',serif;font-size:.65rem;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .3s;border:1px solid}
+.btn-gold{background:rgba(255,215,0,.08);border-color:var(--gold);color:var(--gold)}
+.btn-gold:hover{background:rgba(255,215,0,.2)}
+.btn-blue{background:rgba(59,130,246,.08);border-color:var(--royal-bright);color:var(--royal-bright)}
+.btn-blue:hover{background:rgba(59,130,246,.2)}
+.btn-danger{background:rgba(239,68,68,.08);border-color:#ef4444;color:#ef4444}
+.btn-danger:hover{background:rgba(239,68,68,.2)}
+.btn-sm{padding:.28rem .65rem;font-size:.6rem}
+.admin-info{font-size:.68rem;color:var(--text-muted);margin-top:.6rem;line-height:1.55;font-style:italic}
+.proj-admin-list{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.7rem}
+.proj-admin-item{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;background:rgba(2,8,20,.6);border:1px solid var(--border-gold);border-radius:2px}
+.proj-admin-name{font-size:.74rem;color:var(--text-bright);font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.proj-admin-badge{font-size:.6rem;padding:.1rem .38rem;border-radius:999px;flex-shrink:0}
+.badge-c{background:rgba(74,222,128,.12);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.badge-o{background:rgba(59,130,246,.12);color:var(--royal-bright);border:1px solid rgba(59,130,246,.3)}
+.acc-divider{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:.75rem 0 .5rem;padding-bottom:.4rem;border-bottom:1px solid rgba(255,215,0,.1)}
+
+/* ── Lightbox ── */
+#lightbox{position:fixed;inset:0;z-index:9998;background:rgba(2,8,20,.97);display:none;
+  align-items:center;justify-content:center;flex-direction:column;gap:1rem}
+#lightbox.open{display:flex}
+#lightbox img{max-width:90vw;max-height:76vh;border-radius:4px;border:1px solid var(--border-gold);object-fit:contain}
+#lightbox-caption{font-family:'Cinzel',serif;font-size:.8rem;color:var(--text-muted);text-align:center;max-width:80vw}
+#lightbox-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--gold);font-size:1.7rem;cursor:pointer;z-index:1}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(7,29,62,.75);border:1px solid var(--border-gold);color:var(--gold);font-size:1.4rem;cursor:pointer;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:2px;transition:all .3s}
+.lb-nav:hover{background:rgba(255,215,0,.1)}
+#lb-prev{left:1.5rem}#lb-next{right:1.5rem}
+
+/* ── Toast ── */
+#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(120px);
+  background:rgba(7,29,62,.98);border:1px solid var(--gold);border-radius:4px;
+  padding:.7rem 1.5rem;font-family:'Cinzel',serif;font-size:.76rem;color:var(--gold);
+  letter-spacing:.1em;z-index:10000;transition:transform .35s ease;pointer-events:none;
+  white-space:nowrap;max-width:92vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── Sync Bar ── */
+#syncBar{position:fixed;top:64px;left:0;right:0;z-index:999;background:rgba(255,215,0,.07);
+  border-bottom:1px solid rgba(255,215,0,.14);padding:.38rem 2rem;display:none;
+  align-items:center;justify-content:space-between;font-size:.69rem;color:var(--text-muted);gap:1rem}
+#syncBar.show{display:flex}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:.4rem;animation:sdpulse 2s ease-in-out infinite}
+@keyframes sdpulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ── Reveal ── */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .65s,transform .65s}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+
+/* ── Responsive ── */
+@media(max-width:960px){
+  .mission-inner,.launch-inner,.future-grid,.footer-grid{grid-template-columns:1fr}
+  .gallery-grid{columns:2}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:64px;left:0;right:0;
+    background:rgba(2,8,20,.99);padding:1.4rem 2rem;gap:.9rem;border-bottom:1px solid var(--border-gold)}
+  .nav-links.open{display:flex}
+  .nav-toggle{display:block}
+  .mission-star{order:-1}
+}
+@media(max-width:600px){
+  section{padding:70px 5vw 55px}
+  .gallery-grid{columns:1}
+  .tool-links{flex-direction:column}
+  .footer-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div id="starfield"><canvas id="stars"></canvas></div>
+<div id="watermark"><div class="wm-inner" id="wmInner"></div></div>
+<div id="toast"></div>
+
+<!-- Sync Bar -->
+<div id="syncBar">
+  <span><span class="sync-dot"></span>Changes saved — use <strong style="color:var(--gold)">Export JSON</strong> to share with teammates</span>
+  <button class="btn btn-gold btn-sm" onclick="exportData()" style="flex-shrink:0">Export Now</button>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <button id="lightbox-close">✕</button>
+  <button class="lb-nav" id="lb-prev">‹</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lightbox-caption"></div>
+  <button class="lb-nav" id="lb-next">›</button>
+</div>
+
+<!-- ════════════════════════════════
+     LOGIN MODAL
+════════════════════════════════ -->
+<div id="loginModal">
+  <div class="login-box">
+    <div class="login-logo">⊕ O7</div>
+    <div class="login-sub">Admin Access</div>
+    <label class="login-label">Password</label>
+    <input class="login-input" type="password" id="loginPwd" placeholder="Enter admin password" autocomplete="current-password">
+    <div class="login-err" id="loginErr"></div>
+    <button class="login-btn" onclick="doLogin()">Unlock Admin Panel</button>
+    <br>
+    <button class="login-cancel" onclick="closeLogin()">Cancel</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     ADMIN PANEL
+════════════════════════════════ -->
+<div id="adminPanel">
+  <div id="adminOverlay"></div>
+  <div id="adminDrawer">
+
+    <div class="admin-header">
+      <div class="admin-header-left">
+        <div class="admin-title">⚙ Admin Panel</div>
+        <div class="admin-logged-as">● Logged in as Admin</div>
+      </div>
+      <div class="admin-header-right">
+        <button class="admin-logout" onclick="logoutAdmin()">Logout</button>
+        <button class="admin-close" id="adminClose">✕</button>
+      </div>
+    </div>
+
+    <div class="admin-body">
+
+      <!-- Projects -->
+      <div class="acc-item" id="acc-projects">
+        <button class="acc-header" onclick="toggleAcc('acc-projects')">
+          <div class="acc-header-left"><span class="acc-icon">📁</span><span class="acc-label">Projects</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-divider">Existing Projects</div>
+          <div class="proj-admin-list" id="adminProjectList"></div>
+          <div class="acc-divider">Add New Project</div>
+          <div class="af"><label>Title *</label><input id="pTitle" placeholder="Project name"></div>
+          <div class="af"><label>Description *</label><textarea id="pDesc" rows="3" placeholder="What does it do?"></textarea></div>
+          <div class="af"><label>Tech Stack (comma-separated)</label><input id="pTech" placeholder="Python, TensorFlow, React"></div>
+          <div class="af"><label>Status</label>
+            <select id="pStatus"><option value="ongoing">🔄 Ongoing</option><option value="completed">✅ Completed</option></select>
+          </div>
+          <div class="af"><label>GitHub / Demo URL</label><input id="pUrl" placeholder="https://github.com/..."></div>
+          <div class="btn-row">
+            <button class="btn btn-gold" onclick="addProject()">Add Project</button>
+            <button class="btn btn-danger btn-sm" onclick="clearProjects()">Clear All</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Stats -->
+      <div class="acc-item" id="acc-dashboard">
+        <button class="acc-header" onclick="toggleAcc('acc-dashboard')">
+          <div class="acc-header-left"><span class="acc-icon">📊</span><span class="acc-label">Dashboard Stats</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <div class="af"><label>Total Projects</label><input id="dProjects" type="number" min="0"></div>
+          <div class="af"><label>Completed</label><input id="dCompleted" type="number" min="0"></div>
+          <div class="af"><label>In Progress</label><input id="dInProgress" type="number" min="0"></div>
+          <div class="af"><label>Team Members</label><input id="dMembers" type="number" min="0"></div>
+          <div class="btn-row"><button class="btn btn-gold" onclick="saveDashboard()">Save Stats</button></div>
+          <p class="admin-info">Stats auto-sync when you add/remove projects.</p>
+        </div>
+      </div>
+
+      <!-- Tool Links -->
+      <div class="acc-item" id="acc-tools">
+        <button class="acc-header" onclick="toggleAcc('acc-tools')">
+          <div class="acc-header-left"><span class="acc-icon">🔗</span><span class="acc-label">Tool Links</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <p class="admin-info" style="margin-bottom:.7rem">Paste real URLs — the dashboard buttons will open them.</p>
+          <div class="af"><label>Trello URL</label><input id="tlTrello" placeholder="https://trello.com/b/..."></div>
+          <div class="af"><label>Jira URL</label><input id="tlJira" placeholder="https://yourteam.atlassian.net/..."></div>
+          <div class="af"><label>Asana URL</label><input id="tlAsana" placeholder="https://app.asana.com/..."></div>
+          <div class="af"><label>Notion URL</label><input id="tlNotion" placeholder="https://notion.so/..."></div>
+          <div class="af"><label>GitHub Org URL</label><input id="tlGithub" placeholder="https://github.com/team-o7"></div>
+          <div class="btn-row"><button class="btn btn-gold" onclick="saveToolLinks()">Save Links</button></div>
+        </div>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="acc-item" id="acc-roadmap">
+        <button class="acc-header" onclick="toggleAcc('acc-roadmap')">
+          <div class="acc-header-left"><span class="acc-icon">🗺</span><span class="acc-label">Roadmap</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <div class="af"><label>Phase Label</label><input id="rmPhase" placeholder="Phase VI · 2028"></div>
+          <div class="af"><label>Title</label><input id="rmTitle" placeholder="New milestone"></div>
+          <div class="af"><label>Description</label><textarea id="rmDesc" rows="2" placeholder="What will be achieved?"></textarea></div>
+          <div class="btn-row">
+            <button class="btn btn-gold" onclick="addRoadmap()">Add Phase</button>
+            <button class="btn btn-danger btn-sm" onclick="clearRoadmap()">Reset Defaults</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resources -->
+      <div class="acc-item" id="acc-resources">
+        <button class="acc-header" onclick="toggleAcc('acc-resources')">
+          <div class="acc-header-left"><span class="acc-icon">📚</span><span class="acc-label">Resources</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <div class="af"><label>Name *</label><input id="rName" placeholder="Figma Design File"></div>
+          <div class="af"><label>URL</label><input id="rUrl" placeholder="https://figma.com/..."></div>
+          <div class="af"><label>Category</label><input id="rType" placeholder="Design · Assets"></div>
+          <div class="af"><label>Icon (emoji)</label><input id="rIcon" placeholder="🎨" maxlength="4"></div>
+          <div class="btn-row">
+            <button class="btn btn-gold" onclick="addResource()">Add Resource</button>
+            <button class="btn btn-danger btn-sm" onclick="clearResources()">Clear All</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- kisansathi -->
+      <div class="acc-item" id="acc-kisansathi">
+        <button class="acc-header" onclick="toggleAcc('acc-kisansathi')">
+          <div class="acc-header-left"><span class="acc-icon">🌾</span><span class="acc-label">kisansathi.in</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <div class="af"><label>Website URL</label><input id="ksUrl" placeholder="https://kisansathi.in"></div>
+          <div class="af"><label>Description</label><textarea id="ksDesc" rows="3"></textarea></div>
+          <div class="btn-row"><button class="btn btn-gold" onclick="saveKisansathi()">Update</button></div>
+        </div>
+      </div>
+
+      <!-- Socials -->
+      <div class="acc-item" id="acc-socials">
+        <button class="acc-header" onclick="toggleAcc('acc-socials')">
+          <div class="acc-header-left"><span class="acc-icon">🌐</span><span class="acc-label">Social Links</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <div class="af"><label>GitHub</label><input id="slGithub" placeholder="https://github.com/team-o7"></div>
+          <div class="af"><label>LinkedIn</label><input id="slLinkedin" placeholder="https://linkedin.com/..."></div>
+          <div class="af"><label>Twitter / X</label><input id="slTwitter" placeholder="https://x.com/..."></div>
+          <div class="af"><label>Instagram</label><input id="slInsta" placeholder="https://instagram.com/..."></div>
+          <div class="btn-row"><button class="btn btn-gold" onclick="saveSocials()">Save</button></div>
+        </div>
+      </div>
+
+      <!-- Gallery -->
+      <div class="acc-item" id="acc-gallery">
+        <button class="acc-header" onclick="toggleAcc('acc-gallery')">
+          <div class="acc-header-left"><span class="acc-icon">🖼</span><span class="acc-label">Gallery</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <div class="btn-row"><button class="btn btn-danger btn-sm" onclick="clearGallery()">🗑 Clear All Photos</button></div>
+          <p class="admin-info">Photos are stored in your browser. Right-click to save individually.</p>
+        </div>
+      </div>
+
+      <!-- Data Management -->
+      <div class="acc-item" id="acc-data">
+        <button class="acc-header" onclick="toggleAcc('acc-data')">
+          <div class="acc-header-left"><span class="acc-icon">💾</span><span class="acc-label">Data &amp; Sharing</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <div class="btn-row">
+            <button class="btn btn-blue btn-sm" onclick="exportData()">📦 Export JSON</button>
+            <label class="btn btn-blue btn-sm" style="cursor:pointer">📂 Import JSON
+              <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+            </label>
+            <button class="btn btn-danger btn-sm" onclick="resetAll()">↩ Reset All</button>
+          </div>
+          <p class="admin-info">
+            📤 Export saves all data as JSON — share with teammates.<br>
+            📥 Import loads a JSON on any device to sync data.<br>
+            🖼 Gallery photos are stored in browser only.
+          </p>
+        </div>
+      </div>
+
+    </div><!-- /admin-body -->
+  </div><!-- /adminDrawer -->
+</div><!-- /adminPanel -->
+
+<!-- ════════════════════════════════
+     NAVIGATION
+════════════════════════════════ -->
+<nav>
+  <a class="nav-logo" href="#hero">⊕ O7</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#launch">Launch</a></li>
+    <li><a href="#future">Vision</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="admin-btn" id="adminNavBtn" onclick="handleAdminClick()">⚙ Admin</button>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-chakra">
+    <div class="chakra-ring cr1"></div><div class="chakra-ring cr2"></div>
+    <div class="chakra-ring cr3"></div><div class="chakra-ring cr4"></div>
+  </div>
+  <div class="hero-om">ॐ</div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">॥ Convergence of Minds ॥</p>
+    <h1 class="hero-title">TEAM O7</h1>
+    <p class="hero-tagline">"Innovating with Vision, Rooted in Wisdom"</p>
+    <a href="#mission" class="hero-cta">⬇&nbsp;&nbsp;Discover Our Path</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="mission-inner">
+    <div class="mission-text reveal">
+      <p class="section-label">Our North Star</p>
+      <h2 class="section-title">The <span>Sacred Mission</span></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Empowering real-world problem solving using intelligent systems for agriculture and finance — guided by ancient wisdom, powered by modern technology.</p>
+      <ul class="value-list">
+        <li><span class="value-icon">🌾</span><span>Building digital bridges for India's farming communities through accessible, AI-first tools.</span></li>
+        <li><span class="value-icon">🛡️</span><span>Protecting financial systems with intelligent fraud detection and pattern recognition engines.</span></li>
+        <li><span class="value-icon">💡</span><span>Transforming complex problems into elegant, human-centred solutions.</span></li>
+        <li><span class="value-icon">🤝</span><span>Collaborating with transparency, curiosity, and deep respect for stakeholders.</span></li>
+      </ul>
+    </div>
+    <div class="mission-star reveal reveal-delay-2">
+      <svg class="star-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="sg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFD700" stop-opacity=".9"/><stop offset="100%" stop-color="#3B82F6" stop-opacity=".2"/></radialGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <polygon points="150,20 165,115 240,60 175,140 260,155 175,165 240,245 165,185 150,280 135,185 60,245 125,165 40,155 125,140 60,60 135,115" fill="url(#sg)" opacity=".2" filter="url(#glow)"/>
+        <polygon points="150,40 162,120 225,75 168,145 250,155 168,163 225,225 162,175 150,260 138,175 75,225 132,163 50,155 132,145 75,75 138,120" fill="none" stroke="#FFD700" stroke-width="1" opacity=".6" filter="url(#glow)"/>
+        <polygon points="150,95 185,110 205,145 190,180 155,195 115,180 95,145 110,110" fill="rgba(59,130,246,0.08)" stroke="#3B82F6" stroke-width="1" opacity=".7"/>
+        <circle cx="150" cy="150" r="12" fill="#FFD700" opacity=".9" filter="url(#glow)"/><circle cx="150" cy="150" r="4" fill="#FFF"/>
+        <circle cx="150" cy="36" r="3" fill="#FFD700" opacity=".8"/><circle cx="150" cy="264" r="3" fill="#FFD700" opacity=".8"/>
+        <circle cx="36" cy="150" r="3" fill="#FFD700" opacity=".8"/><circle cx="264" cy="150" r="3" fill="#FFD700" opacity=".8"/>
+        <circle cx="70" cy="70" r="3" fill="#3B82F6" opacity=".7"/><circle cx="230" cy="70" r="3" fill="#3B82F6" opacity=".7"/>
+        <circle cx="70" cy="230" r="3" fill="#3B82F6" opacity=".7"/><circle cx="230" cy="230" r="3" fill="#3B82F6" opacity=".7"/>
+        <circle cx="150" cy="150" r="58" fill="none" stroke="rgba(255,215,0,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+      </svg>
+      <div class="star-center-text">DHARMA<br>KARMA<br>MOKSHA</div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="ornament">⚡ ⚡ ⚡</div>
+  <p class="section-label">The Chosen Five</p>
+  <h2 class="section-title">Meet the <span>Guardians</span></h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">Each member carries the spark of a celestial archetype — together forming an unstoppable force of creation and innovation.</p>
+  <div class="team-grid">
+    <div class="member-card reveal"><div class="member-symbol">🔱</div><div class="member-avatar">AM</div><div class="member-name">Akhil Muppaneni</div></div>
+    <div class="member-card reveal reveal-delay-1"><div class="member-symbol">🌙</div><div class="member-avatar">AK</div><div class="member-name">Adiba Khan</div></div>
+    <div class="member-card reveal reveal-delay-2"><div class="member-symbol">🌸</div><div class="member-avatar">AV</div><div class="member-name">Anushka Vinchurkar</div></div>
+    <div class="member-card reveal reveal-delay-3"><div class="member-symbol">⚡</div><div class="member-avatar">VG</div><div class="member-name">Vaibhav Gedam</div></div>
+    <div class="member-card reveal reveal-delay-4"><div class="member-symbol">🪷</div><div class="member-avatar">KS</div><div class="member-name">Kalyani Sewaiwar</div></div>
+  </div>
+</section>
+
+<!-- DIRECTORY -->
+<section id="directory">
+  <div class="ornament">◈ ◈ ◈</div>
+  <p class="section-label">Celestial Registry</p>
+  <h2 class="section-title">Team <span>Directory</span></h2>
+  <div class="divider"></div>
+  <div class="dir-grid">
+    <div class="dir-card reveal"><div class="dir-header"><div class="dir-avatar">AM</div><div><div class="dir-name">Akhil Muppaneni</div></div></div><div class="dir-item"><span class="dir-item-icon">✉️</span><a href="mailto:muppaneniakhil_6788cs24@nit.edu.in">muppaneniakhil_6788cs24@nit.edu.in</a></div><div class="dir-item"><span class="dir-item-icon">💬</span><span>Slack · Email · Calls</span></div></div>
+    <div class="dir-card reveal reveal-delay-1"><div class="dir-header"><div class="dir-avatar">AK</div><div><div class="dir-name">Adiba Khan</div></div></div><div class="dir-item"><span class="dir-item-icon">✉️</span><a href="mailto:Khanadiba_6571cs24@nit.edu.in">Khanadiba_6571cs24@nit.edu.in</a></div><div class="dir-item"><span class="dir-item-icon">💬</span><span>Email · GitHub · Slack</span></div></div>
+    <div class="dir-card reveal reveal-delay-2"><div class="dir-header"><div class="dir-avatar">AV</div><div><div class="dir-name">Anushka Vinchurkar</div></div></div><div class="dir-item"><span class="dir-item-icon">✉️</span><a href="mailto:Vinchurkaranushka_6661cs24@nit.edu.in">Vinchurkaranushka_6661cs24@nit.edu.in</a></div><div class="dir-item"><span class="dir-item-icon">💬</span><span>Slack · Notion · Email</span></div></div>
+    <div class="dir-card reveal reveal-delay-3"><div class="dir-header"><div class="dir-avatar">VG</div><div><div class="dir-name">Vaibhav Gedam</div></div></div><div class="dir-item"><span class="dir-item-icon">✉️</span><a href="mailto:gedamvaibhav_6613cs24@nit.edu.in">gedamvaibhav_6613cs24@nit.edu.in</a></div><div class="dir-item"><span class="dir-item-icon">💬</span><span>GitHub · Slack · Email</span></div></div>
+    <div class="dir-card reveal reveal-delay-4"><div class="dir-header"><div class="dir-avatar">KS</div><div><div class="dir-name">Kalyani Sewaiwar</div></div></div><div class="dir-item"><span class="dir-item-icon">✉️</span><a href="mailto:sewaiwarkalyani_6749cs24@nit.edu.in">sewaiwarkalyani_6749cs24@nit.edu.in</a></div><div class="dir-item"><span class="dir-item-icon">💬</span><span>Figma · Slack · Email</span></div></div>
+  </div>
+</section>
+
+<!-- HOW TO WORK WITH ME -->
+<section id="workwith">
+  <div class="ornament">🪬 🪬 🪬</div>
+  <p class="section-label">Collaboration Sutras</p>
+  <h2 class="section-title">How to Work <span>With Us</span></h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">Each guardian has a preferred channel of communication. Respect it and our collaboration will flow like the Ganges — clear, purposeful, unstoppable.</p>
+  <div class="workwith-grid">
+    <div class="ww-card reveal"><div class="ww-name">Akhil Muppaneni</div><ul class="ww-items"><li><span class="ww-dot"></span>Slack for quick alignment &amp; decisions</li><li><span class="ww-dot"></span>Email for strategy &amp; formal updates</li><li><span class="ww-dot"></span>Calls for team brainstorming sessions</li><li><span class="ww-dot"></span>Responds within 2 hours on weekdays</li><li><span class="ww-dot"></span>📧&nbsp;<a href="mailto:muppaneniakhil_6788cs24@nit.edu.in" style="color:var(--royal-bright);text-decoration:none;word-break:break-all">muppaneniakhil_6788cs24@nit.edu.in</a></li></ul></div>
+    <div class="ww-card reveal reveal-delay-1"><div class="ww-name">Adiba Khan</div><ul class="ww-items"><li><span class="ww-dot"></span>GitHub issues for technical tasks</li><li><span class="ww-dot"></span>Email for deep technical discussions</li><li><span class="ww-dot"></span>Slack for quick questions &amp; blockers</li><li><span class="ww-dot"></span>Async-first communication preferred</li><li><span class="ww-dot"></span>📧&nbsp;<a href="mailto:Khanadiba_6571cs24@nit.edu.in" style="color:var(--royal-bright);text-decoration:none;word-break:break-all">Khanadiba_6571cs24@nit.edu.in</a></li></ul></div>
+    <div class="ww-card reveal reveal-delay-2"><div class="ww-name">Anushka Vinchurkar</div><ul class="ww-items"><li><span class="ww-dot"></span>Notion for structured data handoffs</li><li><span class="ww-dot"></span>Slack for day-to-day coordination</li><li><span class="ww-dot"></span>Calls for data review &amp; analysis walks</li><li><span class="ww-dot"></span>Document everything before meetings</li><li><span class="ww-dot"></span>📧&nbsp;<a href="mailto:Vinchurkaranushka_6661cs24@nit.edu.in" style="color:var(--royal-bright);text-decoration:none;word-break:break-all">Vinchurkaranushka_6661cs24@nit.edu.in</a></li></ul></div>
+    <div class="ww-card reveal reveal-delay-3"><div class="ww-name">Vaibhav Gedam</div><ul class="ww-items"><li><span class="ww-dot"></span>GitHub PRs for code collaboration</li><li><span class="ww-dot"></span>Slack for urgent blockers only</li><li><span class="ww-dot"></span>Email for non-urgent discussions</li><li><span class="ww-dot"></span>Ticket-first workflow preferred</li><li><span class="ww-dot"></span>📧&nbsp;<a href="mailto:gedamvaibhav_6613cs24@nit.edu.in" style="color:var(--royal-bright);text-decoration:none;word-break:break-all">gedamvaibhav_6613cs24@nit.edu.in</a></li></ul></div>
+    <div class="ww-card reveal reveal-delay-4"><div class="ww-name">Kalyani Sewaiwar</div><ul class="ww-items"><li><span class="ww-dot"></span>Figma comments for design feedback</li><li><span class="ww-dot"></span>Slack for quick UX clarifications</li><li><span class="ww-dot"></span>Calls for design sprint planning</li><li><span class="ww-dot"></span>Share reference visuals always</li><li><span class="ww-dot"></span>📧&nbsp;<a href="mailto:sewaiwarkalyani_6749cs24@nit.edu.in" style="color:var(--royal-bright);text-decoration:none;word-break:break-all">sewaiwarkalyani_6749cs24@nit.edu.in</a></li></ul></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="ornament">⚔️ ⚔️ ⚔️</div>
+  <p class="section-label">Artifacts of Power</p>
+  <h2 class="section-title">Our <span>Sacred Projects</span></h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">Forged in the crucible of collaboration — these are our contributions to a smarter, fairer world.</p>
+  <div class="proj-grid" id="projectsGrid"></div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="ornament">📊 📊 📊</div>
+  <p class="section-label">Command Centre</p>
+  <h2 class="section-title">Project <span>Dashboard</span></h2>
+  <div class="divider"></div>
+  <div class="dash-grid">
+    <div class="dash-stat reveal"><div class="dash-stat-num" id="dStatProjects">2</div><div class="dash-stat-label">Total Projects</div></div>
+    <div class="dash-stat reveal reveal-delay-1"><div class="dash-stat-num" id="dStatCompleted">1</div><div class="dash-stat-label">Completed</div></div>
+    <div class="dash-stat reveal reveal-delay-2"><div class="dash-stat-num" id="dStatInProgress">1</div><div class="dash-stat-label">In Progress</div></div>
+    <div class="dash-stat reveal reveal-delay-3"><div class="dash-stat-num" id="dStatMembers">5</div><div class="dash-stat-label">Team Members</div></div>
+  </div>
+  <p class="section-subtitle" style="margin-top:2rem">Click to open your project management tools — set URLs in Admin ⚙:</p>
+  <div class="tool-links" id="toolLinks"></div>
+</section>
+
+<!-- LAUNCH -->
+<section id="launch">
+  <div class="ornament">🌾 🌾 🌾</div>
+  <div class="launch-inner">
+    <div class="reveal"><div class="launch-globe">🌾</div></div>
+    <div class="reveal reveal-delay-2">
+      <p class="section-label">Current Launch</p>
+      <div class="launch-url" id="ksUrlDisplay"><a href="https://kisansathi.in" target="_blank">kisansathi.in</a></div>
+      <div class="divider"></div>
+      <p class="launch-desc" id="ksDescDisplay">A platform aimed at empowering farmers with digital solutions — from crop advisory and weather intelligence to market price access and financial inclusion tools.</p>
+      <ul class="launch-features">
+        <li><span class="lf-icon">🌱</span> Real-time crop advisory &amp; disease detection</li>
+        <li><span class="lf-icon">☁️</span> Hyperlocal weather intelligence</li>
+        <li><span class="lf-icon">💰</span> Market price aggregation &amp; alerts</li>
+        <li><span class="lf-icon">📱</span> Mobile-first, vernacular support</li>
+        <li><span class="lf-icon">🤝</span> Direct connect with agri-input suppliers</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FUTURE -->
+<section id="future">
+  <div class="ornament">🔮 🔮 🔮</div>
+  <div class="future-grid">
+    <div class="reveal">
+      <p class="section-label">The Cosmic Roadmap</p>
+      <h2 class="section-title">Our <span>Vision Forward</span></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">The stars have aligned. Our path stretches beyond the horizon — here is what the seers have foretold for Team O7.</p>
+    </div>
+    <div class="reveal reveal-delay-2"><div class="roadmap" id="roadmapContainer"></div></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="ornament">🖼 🖼 🖼</div>
+  <p class="section-label">Visual Chronicles</p>
+  <h2 class="section-title">Photo <span>Gallery</span></h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">Moments captured from our journey — sprints, demos, team hangouts, and breakthrough milestones.</p>
+  <div class="gallery-upload-area locked" id="uploadArea">
+    <input type="file" id="galleryInput" accept="image/*" multiple>
+    <div class="gallery-upload-icon">📸</div>
+    <div class="gallery-upload-text" id="uploadText">Admin login required to upload photos</div>
+    <div class="gallery-lock-notice" id="uploadLockNote">🔒 Only admins can add photos</div>
+  </div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="ornament">📚 📚 📚</div>
+  <p class="section-label">Sacred Scriptures</p>
+  <h2 class="section-title">Resource <span>Library</span></h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">Our shared repository of wisdom — templates, brand assets, tools, and links that power our craft.</p>
+  <div class="resource-grid" id="resourceGrid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a class="nav-logo" href="#hero" style="display:block;margin-bottom:1rem;font-size:1.4rem">⊕ TEAM O7</a>
+      <p class="footer-desc">Innovating with Vision, Rooted in Wisdom. Five minds. One mission. Building intelligent systems for agriculture and finance.</p>
+      <div class="social-links" id="socialLinksFooter"></div>
+    </div>
+    <div>
+      <div class="footer-heading">Navigate</div>
+      <ul class="footer-links">
+        <li><a href="#mission">Our Mission</a></li><li><a href="#team">Team Members</a></li>
+        <li><a href="#projects">Projects</a></li><li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#launch">kisansathi.in</a></li><li><a href="#future">Vision 2027</a></li>
+        <li><a href="#gallery">Gallery</a></li><li><a href="#resources">Resources</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:muppaneniakhil_6788cs24@nit.edu.in">Team Lead Email</a></li>
+        <li><a href="#gallery">Photo Gallery</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#dashboard">Project Tracker</a></li>
+      </ul>
+      <div style="margin-top:1.5rem">
+        <div class="footer-heading">Institution</div>
+        <p style="font-size:.83rem;color:var(--text-muted)">NIT · CS Batch 2024<br>India 🇮🇳</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 <span class="co">TEAM O7</span>. All rights reserved.</span>
+    <span style="font-family:'Cinzel',serif;letter-spacing:.1em">॥ सत्यमेव जयते ॥</span>
+  </div>
+</footer>
+
+<script>
+'use strict';
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   AUTH — Password-protected admin
+   Password: teamo7admin
+   Session persists until tab closes
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const ADMIN_HASH = '8a7b9c3e5f1d2a4b6c8e0f2a4b6c8e0f';  // not used for hash check
+const ADMIN_PASSWORD = 'teamo7admin';  // change this to your desired password
+
+let isAdmin = sessionStorage.getItem('o7_admin') === 'yes';
+
+function handleAdminClick() {
+  if (isAdmin) {
+    openAdmin();
+  } else {
+    openLogin();
+  }
+}
+
+function openLogin() {
+  document.getElementById('loginPwd').value = '';
+  document.getElementById('loginErr').textContent = '';
+  document.getElementById('loginModal').classList.add('open');
+  setTimeout(() => document.getElementById('loginPwd').focus(), 100);
+}
+
+function closeLogin() {
+  document.getElementById('loginModal').classList.remove('open');
+}
+
+function doLogin() {
+  const pwd = document.getElementById('loginPwd').value;
+  if (pwd === ADMIN_PASSWORD) {
+    isAdmin = true;
+    sessionStorage.setItem('o7_admin', 'yes');
+    closeLogin();
+    applyAdminUI();
+    openAdmin();
+    toast('🔓 Welcome, Admin!');
+  } else {
+    document.getElementById('loginErr').textContent = '⚠ Incorrect password. Try again.';
+    document.getElementById('loginPwd').value = '';
+    document.getElementById('loginPwd').focus();
+    // shake effect
+    const box = document.querySelector('.login-box');
+    box.style.animation = 'none';
+    box.offsetHeight;
+    box.style.animation = 'shake .35s ease';
+  }
+}
+
+function logoutAdmin() {
+  isAdmin = false;
+  sessionStorage.removeItem('o7_admin');
+  document.getElementById('adminPanel').classList.remove('open');
+  removeAdminUI();
+  toast('🔒 Logged out');
+}
+
+document.getElementById('loginPwd').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+  if (e.key === 'Escape') closeLogin();
+});
+document.getElementById('loginModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeLogin();
+});
+
+// Apply/remove admin-only UI elements
+function applyAdminUI() {
+  document.body.classList.add('admin-mode');
+  // Unlock gallery upload
+  const ua = document.getElementById('uploadArea');
+  ua.classList.remove('locked');
+  ua.onclick = () => document.getElementById('galleryInput').click();
+  document.getElementById('uploadText').textContent = 'Click or drag & drop photos here';
+  document.getElementById('uploadLockNote').textContent = 'JPG · PNG · GIF · WebP — multiple files supported';
+  // Update nav button
+  document.getElementById('adminNavBtn').textContent = '⚙ Admin ●';
+  document.getElementById('adminNavBtn').style.borderColor = 'rgba(74,222,128,.5)';
+  document.getElementById('adminNavBtn').style.color = '#6ee7b7';
+  renderProjects(); // re-render to show delete buttons
+  renderResources();
+  renderRoadmap();
+}
+
+function removeAdminUI() {
+  document.body.classList.remove('admin-mode');
+  // Lock gallery upload
+  const ua = document.getElementById('uploadArea');
+  ua.classList.add('locked');
+  ua.onclick = null;
+  document.getElementById('uploadText').textContent = 'Admin login required to upload photos';
+  document.getElementById('uploadLockNote').textContent = '🔒 Only admins can add photos';
+  // Reset nav button
+  document.getElementById('adminNavBtn').textContent = '⚙ Admin';
+  document.getElementById('adminNavBtn').style.borderColor = '';
+  document.getElementById('adminNavBtn').style.color = '';
+  renderProjects();
+  renderResources();
+  renderRoadmap();
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ACCORDION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function toggleAcc(id) {
+  const item = document.getElementById(id);
+  const isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.acc-item.open').forEach(el => el.classList.remove('open'));
+  // Open clicked if it was closed
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   STORAGE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const DEFAULTS = {
+  projects: [
+    {id:'p1',title:'Fraudulent Insurance Claim Identifier',desc:'An AI-powered system that detects fraudulent insurance claims by analysing patterns, anomalies, and behavioural signals in claim data — reducing losses and protecting genuine claimants.',tech:['Python','Scikit-learn','XGBoost','FastAPI','PostgreSQL'],status:'completed',url:''},
+    {id:'p2',title:'Invoice Fraud Detector',desc:'A machine learning pipeline that identifies duplicate, inflated, or forged invoices in enterprise billing systems — bringing divine clarity to financial chaos with real-time alerts and audit trails.',tech:['Python','NLP','PyTorch','React','MongoDB'],status:'ongoing',url:''}
+  ],
+  dashboard:{projects:2,completed:1,inProgress:1,members:5},
+  roadmap:[
+    {phase:'Phase I · Now',title:'Establish the Foundation',desc:'Complete kisansathi.in MVP. Ship Invoice Fraud Detector v1. Build internal tooling and CI/CD pipelines.'},
+    {phase:'Phase II · Q3 2026',title:'Scale Agriculture Tech',desc:'Expand kisansathi.in to 3 new states. Integrate satellite imagery for crop health monitoring. Launch vernacular voice interface.'},
+    {phase:'Phase III · Q4 2026',title:'AI Solutions Expansion',desc:'Build a generative AI layer for automated financial auditing. Explore LLM-based advisory tools for smallholder farmers.'},
+    {phase:'Phase IV · 2027',title:'Pan-India Fraud Detection Suite',desc:'Unify insurance, invoice, and identity fraud detection into a single enterprise-grade SaaS platform. Open API ecosystem.'},
+    {phase:'Horizon · Beyond',title:'Global Impact',desc:'Take our agriculture-tech playbook to Southeast Asia & Africa. Build the next generation of ethical AI for the underserved.'}
+  ],
+  resources:[
+    {name:'Brand Assets',url:'#',type:'Logos · Colors · Typography',icon:'🎨'},
+    {name:'Project Templates',url:'#',type:'PRDs · Sprint · Retro',icon:'📄'},
+    {name:'ML Model Registry',url:'#',type:'Versioned Models · Docs',icon:'🤖'},
+    {name:'Figma Design System',url:'#',type:'Components · Styles',icon:'🖌️'},
+    {name:'Data Dictionaries',url:'#',type:'Schema · Glossary',icon:'📊'},
+    {name:'Dev Toolchain',url:'#',type:'VS Code · GitHub · Docker',icon:'🔧'},
+    {name:'Research Papers',url:'#',type:'AgriTech · FinTech AI',icon:'📖'},
+    {name:'Testing Playbooks',url:'#',type:'Unit · Integration · UAT',icon:'🧪'}
+  ],
+  toolLinks:{trello:'',jira:'',asana:'',notion:'',github:''},
+  kisansathi:{url:'https://kisansathi.in',desc:'A platform aimed at empowering farmers with digital solutions — from crop advisory and weather intelligence to market price access and financial inclusion tools.'},
+  socials:{github:'',linkedin:'',twitter:'',instagram:''}
+};
+
+function load(k){try{const v=localStorage.getItem('o7_'+k);return v?JSON.parse(v):JSON.parse(JSON.stringify(DEFAULTS[k]));}catch(e){return JSON.parse(JSON.stringify(DEFAULTS[k]));}}
+function save(k,v){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  try{localStorage.setItem('o7_'+k,JSON.stringify(v));showSync();}
+  catch(e){toast('⚠ Storage limit reached — export your data!');}
+}
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+
+/* ━━━━ TOAST ━━━━ */
+let _tt;
+function toast(msg,dur=2800){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),dur);}
+
+/* ━━━━ SYNC BAR ━━━━ */
+let _st;
+function showSync(){const b=document.getElementById('syncBar');b.classList.add('show');clearTimeout(_st);_st=setTimeout(()=>b.classList.remove('show'),7000);}
+
+/* ━━━━ REVEAL ━━━━ */
+function reobserve(){
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.07,rootMargin:'0px 0px -35px 0px'});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+}
+
+/* ━━━━ PROJECTS ━━━━ */
+function renderProjects(){
+  const ps=load('projects'),grid=document.getElementById('projectsGrid');if(!grid)return;
+  if(!ps.length){grid.innerHTML='<p style="color:var(--text-muted);font-style:italic;padding:2rem 0;grid-column:1/-1">No projects yet — open ⚙ Admin to add one.</p>';renderAdminProjectList([]);return;}
+  grid.innerHTML=ps.map((p,i)=>`
+    <div class="proj-card reveal${i?' reveal-delay-'+Math.min(i,4):''}">
+      <div class="proj-badge badge-${p.status}">${p.status==='completed'?'✅ Completed':'🔄 Ongoing'}</div>
+      <div class="proj-title">${esc(p.title)}</div>
+      <div class="proj-desc">${esc(p.desc)}</div>
+      <div class="tech-stack">${(p.tech||[]).map(t=>`<span class="tech-tag">${esc(t)}</span>`).join('')}</div>
+      ${p.url?`<a href="${esc(p.url)}" target="_blank" class="proj-link">🔗 View Project ↗</a>`:''}
+      ${isAdmin?`<div class="proj-actions">
+        <button class="btn btn-blue btn-sm" onclick="toggleStatus('${p.id}')">${p.status==='completed'?'↩ Mark Ongoing':'✅ Mark Complete'}</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteProject('${p.id}')">🗑 Remove</button>
+      </div>`:''}
+    </div>`).join('');
+  renderAdminProjectList(ps);reobserve();
+}
+
+function renderAdminProjectList(ps){
+  const list=document.getElementById('adminProjectList');if(!list)return;
+  if(!ps.length){list.innerHTML='<p style="font-size:.74rem;color:var(--text-muted);font-style:italic">No projects yet.</p>';return;}
+  list.innerHTML=ps.map(p=>`
+    <div class="proj-admin-item">
+      <span class="proj-admin-name">${esc(p.title)}</span>
+      <span class="proj-admin-badge ${p.status==='completed'?'badge-c':'badge-o'}">${p.status==='completed'?'✅':'🔄'}</span>
+      <button class="btn btn-danger btn-sm" onclick="deleteProject('${p.id}')">✕</button>
+    </div>`).join('');
+}
+
+function addProject(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  const title=document.getElementById('pTitle').value.trim(),desc=document.getElementById('pDesc').value.trim();
+  if(!title||!desc){toast('⚠ Title and description required');return;}
+  const tech=document.getElementById('pTech').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const status=document.getElementById('pStatus').value,url=document.getElementById('pUrl').value.trim();
+  const ps=load('projects');ps.push({id:'p'+Date.now(),title,desc,tech,status,url});
+  save('projects',ps);renderProjects();syncDash();
+  ['pTitle','pDesc','pTech','pUrl'].forEach(id=>document.getElementById(id).value='');
+  toast('✅ Project added!');
+}
+
+function deleteProject(id){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  if(!confirm('Remove this project?'))return;
+  save('projects',load('projects').filter(p=>p.id!==id));renderProjects();syncDash();toast('🗑 Project removed');
+}
+
+function toggleStatus(id){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  save('projects',load('projects').map(p=>p.id===id?{...p,status:p.status==='completed'?'ongoing':'completed'}:p));
+  renderProjects();syncDash();toast('🔄 Status updated');
+}
+
+function clearProjects(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  if(!confirm('Clear ALL projects?'))return;
+  save('projects',[]);renderProjects();syncDash();toast('🗑 Projects cleared');
+}
+
+function syncDash(){
+  const ps=load('projects'),d=load('dashboard');
+  d.projects=ps.length;d.completed=ps.filter(p=>p.status==='completed').length;d.inProgress=ps.filter(p=>p.status==='ongoing').length;
+  localStorage.setItem('o7_dashboard',JSON.stringify(d));renderDashboard();
+}
+
+/* ━━━━ DASHBOARD ━━━━ */
+function renderDashboard(){
+  const d=load('dashboard');
+  [['Projects','projects'],['Completed','completed'],['InProgress','inProgress'],['Members','members']].forEach(([k,v])=>{
+    const el=document.getElementById('dStat'+k);if(el)el.textContent=d[v]??0;
+  });
+  [{id:'dProjects',k:'projects'},{id:'dCompleted',k:'completed'},{id:'dInProgress',k:'inProgress'},{id:'dMembers',k:'members'}].forEach(({id,k})=>{
+    const el=document.getElementById(id);if(el)el.value=d[k]??0;
+  });
+}
+function saveDashboard(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  save('dashboard',{projects:+document.getElementById('dProjects').value||0,completed:+document.getElementById('dCompleted').value||0,inProgress:+document.getElementById('dInProgress').value||0,members:+document.getElementById('dMembers').value||5});
+  renderDashboard();toast('📊 Stats updated');
+}
+
+/* ━━━━ TOOL LINKS ━━━━ */
+const TOOLS=[
+  {k:'trello',icon:'📋',label:'Trello Board'},
+  {k:'jira',icon:'🎯',label:'Jira Tickets'},
+  {k:'asana',icon:'📁',label:'Asana Tasks'},
+  {k:'notion',icon:'📝',label:'Notion Docs'},
+  {k:'github',icon:'🔗',label:'GitHub Repos'}
+];
+
+function renderToolLinks(){
+  const tl=load('toolLinks'),container=document.getElementById('toolLinks');if(!container)return;
+  container.innerHTML=TOOLS.map(t=>{
+    const url=tl[t.k]&&tl[t.k].trim()!==''?tl[t.k].trim():null;
+    if(url){
+      return `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="tool-link"><span class="tool-icon">${t.icon}</span>${t.label} ↗</a>`;
+    } else {
+      return `<span class="tool-link tool-link-disabled" title="URL not set — add it in Admin ⚙"><span class="tool-icon">${t.icon}</span>${t.label}</span>`;
+    }
+  }).join('');
+  [{id:'tlTrello',k:'trello'},{id:'tlJira',k:'jira'},{id:'tlAsana',k:'asana'},{id:'tlNotion',k:'notion'},{id:'tlGithub',k:'github'}].forEach(({id,k})=>{
+    const el=document.getElementById(id);if(el)el.value=tl[k]||'';
+  });
+}
+function saveToolLinks(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  save('toolLinks',{trello:document.getElementById('tlTrello').value.trim(),jira:document.getElementById('tlJira').value.trim(),asana:document.getElementById('tlAsana').value.trim(),notion:document.getElementById('tlNotion').value.trim(),github:document.getElementById('tlGithub').value.trim()});
+  renderToolLinks();toast('🔗 Tool links saved — buttons are now live!');
+}
+
+/* ━━━━ ROADMAP ━━━━ */
+function renderRoadmap(){
+  const rm=load('roadmap'),c=document.getElementById('roadmapContainer');if(!c)return;
+  if(!rm.length){c.innerHTML='<p style="color:var(--text-muted);font-style:italic;font-size:.85rem">No phases yet — add one in Admin ⚙</p>';return;}
+  c.innerHTML=rm.map((item,i)=>`
+    <div class="roadmap-item">
+      <div class="roadmap-phase">${esc(item.phase)}</div>
+      <div class="roadmap-title">${esc(item.title)}</div>
+      <div class="roadmap-desc">${esc(item.desc)}</div>
+      <div class="roadmap-del"><button class="btn btn-danger btn-sm" onclick="deleteRoadmap(${i})">🗑 Remove</button></div>
+    </div>`).join('');
+}
+function addRoadmap(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  const phase=document.getElementById('rmPhase').value.trim(),title=document.getElementById('rmTitle').value.trim(),desc=document.getElementById('rmDesc').value.trim();
+  if(!phase||!title){toast('⚠ Phase label and title required');return;}
+  const rm=load('roadmap');rm.push({phase,title,desc});save('roadmap',rm);renderRoadmap();
+  ['rmPhase','rmTitle','rmDesc'].forEach(id=>document.getElementById(id).value='');
+  toast('🗺 Phase added!');
+}
+function deleteRoadmap(i){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  if(!confirm('Remove this phase?'))return;
+  const rm=load('roadmap');rm.splice(i,1);save('roadmap',rm);renderRoadmap();toast('🗑 Phase removed');
+}
+function clearRoadmap(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  if(!confirm('Reset roadmap to defaults?'))return;
+  save('roadmap',JSON.parse(JSON.stringify(DEFAULTS.roadmap)));renderRoadmap();toast('↩ Reset to defaults');
+}
+
+/* ━━━━ RESOURCES ━━━━ */
+function renderResources(){
+  const res=load('resources'),grid=document.getElementById('resourceGrid');if(!grid)return;
+  if(!res.length){grid.innerHTML='<p style="color:var(--text-muted);font-style:italic;font-size:.85rem;grid-column:1/-1">No resources yet — add one in Admin ⚙</p>';return;}
+  grid.innerHTML=res.map((r,i)=>`
+    <div class="resource-card reveal${i?' reveal-delay-'+Math.min((i%4)+1,4):''}">
+      <span class="resource-icon">${esc(r.icon||'📎')}</span>
+      <div style="flex:1;min-width:0">
+        <div class="resource-name">${esc(r.name)}</div>
+        <div class="resource-type">${esc(r.type)}</div>
+        ${r.url&&r.url!=='#'?`<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" class="resource-open">Open ↗</a>`:''}
+      </div>
+      <div class="resource-del"><button class="btn btn-danger btn-sm" onclick="deleteResource(${i})">✕</button></div>
+    </div>`).join('');
+  reobserve();
+}
+function addResource(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  const name=document.getElementById('rName').value.trim();if(!name){toast('⚠ Name required');return;}
+  const url=document.getElementById('rUrl').value.trim(),type=document.getElementById('rType').value.trim(),icon=document.getElementById('rIcon').value.trim()||'📎';
+  const res=load('resources');res.push({name,url,type,icon});save('resources',res);renderResources();
+  ['rName','rUrl','rType','rIcon'].forEach(id=>document.getElementById(id).value='');
+  toast('📚 Resource added!');
+}
+function deleteResource(i){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  if(!confirm('Remove this resource?'))return;
+  const res=load('resources');res.splice(i,1);save('resources',res);renderResources();toast('🗑 Removed');
+}
+function clearResources(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  if(!confirm('Clear all resources?'))return;
+  save('resources',[]);renderResources();toast('🗑 Cleared');
+}
+
+/* ━━━━ KISANSATHI ━━━━ */
+function renderKisansathi(){
+  const ks=load('kisansathi');
+  const ud=document.getElementById('ksUrlDisplay'),dd=document.getElementById('ksDescDisplay');
+  if(ud)ud.innerHTML=`<a href="${esc(ks.url)}" target="_blank">${esc(ks.url.replace(/^https?:\/\//,''))}</a>`;
+  if(dd)dd.textContent=ks.desc;
+  const ui=document.getElementById('ksUrl'),di=document.getElementById('ksDesc');
+  if(ui)ui.value=ks.url;if(di)di.value=ks.desc;
+}
+function saveKisansathi(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  const url=document.getElementById('ksUrl').value.trim();if(!url){toast('⚠ URL required');return;}
+  save('kisansathi',{url,desc:document.getElementById('ksDesc').value.trim()});renderKisansathi();toast('🌾 Updated!');
+}
+
+/* ━━━━ SOCIALS ━━━━ */
+const SOCIAL_ICONS={github:'🐙',linkedin:'💼',twitter:'🐦',instagram:'📷'};
+function renderSocials(){
+  const sl=load('socials'),footer=document.getElementById('socialLinksFooter');
+  if(footer){footer.innerHTML=Object.entries(SOCIAL_ICONS).map(([k,icon])=>{
+    const url=sl[k]&&sl[k].trim()!==''?sl[k].trim():null;
+    return url
+      ?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="${k}">${icon}</a>`
+      :`<span class="social-link" style="opacity:.3;cursor:default" title="URL not set">${icon}</span>`;
+  }).join('');}
+  Object.keys(sl).forEach(k=>{const el=document.getElementById('sl'+k[0].toUpperCase()+k.slice(1));if(el)el.value=sl[k]||'';});
+}
+function saveSocials(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  save('socials',{github:document.getElementById('slGithub').value.trim(),linkedin:document.getElementById('slLinkedin').value.trim(),twitter:document.getElementById('slTwitter').value.trim(),instagram:document.getElementById('slInsta').value.trim()});
+  renderSocials();toast('🌐 Social links saved!');
+}
+
+/* ━━━━ GALLERY ━━━━ */
+let gallery=[],lbIdx=0;
+function loadGallery(){try{gallery=JSON.parse(localStorage.getItem('o7_gallery')||'[]');}catch(e){gallery=[];}}
+function saveGallery(){
+  try{localStorage.setItem('o7_gallery',JSON.stringify(gallery));showSync();}
+  catch(e){gallery.pop();toast('⚠ Gallery storage full — try smaller images or clear old ones',5000);}
+}
+function renderGallery(){
+  const grid=document.getElementById('galleryGrid');if(!grid)return;
+  if(!gallery.length){grid.innerHTML='<p style="color:var(--text-muted);font-style:italic;text-align:center;padding:2rem 0;column-span:all">No photos yet'+(isAdmin?' — upload some above':' 📸')+'</p>';return;}
+  grid.innerHTML=gallery.map((img,i)=>`
+    <div class="gallery-item">
+      <img src="${img.src}" alt="${esc(img.caption)}" loading="lazy" onclick="openLB(${i})">
+      <div class="gallery-overlay">
+        <button class="btn btn-gold btn-sm" onclick="openLB(${i})">🔍 View</button>
+        ${isAdmin?`<button class="btn btn-danger btn-sm" onclick="deletePhoto(${i})">🗑 Delete</button>`:''}
+      </div>
+      <div class="gallery-caption">
+        ${isAdmin
+          ?`<input class="gallery-caption-edit" value="${esc(img.caption)}" onchange="updateCaption(${i},this.value)" onclick="event.stopPropagation()" placeholder="Add a caption...">`
+          :`<span>${esc(img.caption)}</span>`}
+      </div>
+    </div>`).join('');
+}
+function handleFiles(files){
+  if(!isAdmin){toast('🔒 Admin login required to upload photos');return;}
+  const arr=Array.from(files).filter(f=>f.type.startsWith('image/'));
+  if(!arr.length){toast('⚠ Image files only');return;}
+  let done=0;toast(`⏳ Uploading ${arr.length} file${arr.length>1?'s':''}…`);
+  arr.forEach(f=>{
+    const r=new FileReader();
+    r.onload=e=>{gallery.push({src:e.target.result,caption:f.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ')});
+    if(++done===arr.length){saveGallery();renderGallery();toast(`📸 ${done} photo${done>1?'s':''} added!`);}};
+    r.readAsDataURL(f);
+  });
+}
+function deletePhoto(i){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  if(!confirm('Remove this photo?'))return;gallery.splice(i,1);saveGallery();renderGallery();toast('🗑 Removed');
+}
+function updateCaption(i,v){if(!isAdmin)return;gallery[i].caption=v;saveGallery();}
+function clearGallery(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  if(!confirm('Remove ALL photos? Cannot be undone.'))return;
+  gallery=[];try{localStorage.removeItem('o7_gallery');}catch(e){}renderGallery();toast('🗑 Gallery cleared');
+}
+
+/* ━━━━ LIGHTBOX ━━━━ */
+function openLB(i){if(!gallery.length)return;lbIdx=Math.max(0,Math.min(i,gallery.length-1));document.getElementById('lb-img').src=gallery[lbIdx].src;document.getElementById('lightbox-caption').textContent=gallery[lbIdx].caption;document.getElementById('lightbox').classList.add('open');}
+function closeLB(){document.getElementById('lightbox').classList.remove('open');}
+document.getElementById('lightbox-close').onclick=closeLB;
+document.getElementById('lightbox').onclick=e=>{if(e.target===e.currentTarget)closeLB();};
+document.getElementById('lb-prev').onclick=()=>{lbIdx=(lbIdx-1+gallery.length)%gallery.length;openLB(lbIdx);};
+document.getElementById('lb-next').onclick=()=>{lbIdx=(lbIdx+1)%gallery.length;openLB(lbIdx);};
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open'))return;
+  if(e.key==='Escape')closeLB();
+  if(e.key==='ArrowLeft'&&gallery.length){lbIdx=(lbIdx-1+gallery.length)%gallery.length;openLB(lbIdx);}
+  if(e.key==='ArrowRight'&&gallery.length){lbIdx=(lbIdx+1)%gallery.length;openLB(lbIdx);}
+});
+
+// Gallery upload area drag & drop (only when admin)
+const galleryInput = document.getElementById('galleryInput');
+galleryInput.onchange = e => handleFiles(e.target.files);
+const ua = document.getElementById('uploadArea');
+ua.addEventListener('dragover',e=>{if(!isAdmin)return;e.preventDefault();ua.classList.add('dragover');});
+ua.addEventListener('dragleave',()=>ua.classList.remove('dragover'));
+ua.addEventListener('drop',e=>{if(!isAdmin){e.preventDefault();toast('🔒 Admin login required');return;}e.preventDefault();ua.classList.remove('dragover');handleFiles(e.dataTransfer.files);});
+
+/* ━━━━ ADMIN PANEL ━━━━ */
+function openAdmin(){
+  if(!isAdmin){openLogin();return;}
+  document.getElementById('adminPanel').classList.add('open');
+  renderDashboard();renderToolLinks();renderKisansathi();renderSocials();renderAdminProjectList(load('projects'));
+}
+document.getElementById('adminClose').onclick=()=>document.getElementById('adminPanel').classList.remove('open');
+document.getElementById('adminOverlay').onclick=()=>document.getElementById('adminPanel').classList.remove('open');
+
+/* ━━━━ EXPORT / IMPORT / RESET ━━━━ */
+function exportData(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  const data={_version:'2.0',_exported:new Date().toISOString(),_team:'TEAM O7',
+    projects:load('projects'),dashboard:load('dashboard'),roadmap:load('roadmap'),
+    resources:load('resources'),toolLinks:load('toolLinks'),kisansathi:load('kisansathi'),socials:load('socials')};
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+  a.download='teamo7-data-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();URL.revokeObjectURL(a.href);
+  toast('📦 Exported! Share this JSON with teammates.');
+}
+function importData(e){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      const keys=['projects','dashboard','roadmap','resources','toolLinks','kisansathi','socials'];
+      let n=0;keys.forEach(k=>{if(data[k]!==undefined){localStorage.setItem('o7_'+k,JSON.stringify(data[k]));n++;}});
+      renderAll();toast(`✅ Imported ${n} data sections!`);
+    }catch{toast('⚠ Invalid JSON file');}
+  };
+  r.readAsText(f);e.target.value='';
+}
+function resetAll(){
+  if(!isAdmin){toast('🔒 Admin login required');return;}
+  if(!confirm('⚠ Reset ALL data to defaults? Cannot be undone.'))return;
+  Object.keys(DEFAULTS).forEach(k=>localStorage.setItem('o7_'+k,JSON.stringify(JSON.parse(JSON.stringify(DEFAULTS[k])))));
+  gallery=[];try{localStorage.removeItem('o7_gallery');}catch(e){}
+  renderAll();toast('↩ Reset to defaults');
+}
+
+/* ━━━━ STARFIELD ━━━━ */
+(function(){
+  const c=document.getElementById('stars'),ctx=c.getContext('2d');let W,H,stars=[];
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  function init(){stars=[];for(let i=0;i<240;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.2,o:Math.random()*.7+.1,s:Math.random()*.3+.04,d:Math.random()*Math.PI*2});}
+  function draw(){ctx.clearRect(0,0,W,H);stars.forEach(s=>{s.d+=s.s*.01;const t=s.o+Math.sin(s.d)*.2;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(195,215,255,${Math.max(0,t)})`;ctx.fill();});requestAnimationFrame(draw);}
+  window.addEventListener('resize',()=>{resize();init();});resize();init();draw();
+})();
+
+/* ━━━━ WATERMARK ━━━━ */
+(function(){
+  const wm=document.getElementById('wmInner');
+  const logo=`<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><polygon points="30,4 34,22 48,12 38,26 56,30 38,34 48,48 34,38 30,56 26,38 12,48 22,34 4,30 22,26 12,12 26,22" fill="#FFD700" opacity=".9"/><circle cx="30" cy="30" r="6" fill="#FFD700"/><circle cx="30" cy="30" r="2.5" fill="#fff"/></svg>`;
+  let h='';for(let i=0;i<36;i++)h+=`<div class="wm-item">${logo}<span>TEAM O7</span></div>`;wm.innerHTML=h;
+})();
+
+/* ━━━━ NAV ━━━━ */
+document.getElementById('navToggle').onclick=()=>document.getElementById('navLinks').classList.toggle('open');
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+
+/* ━━━━ SHAKE ANIMATION ━━━━ */
+const shakeStyle=document.createElement('style');
+shakeStyle.textContent='@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}';
+document.head.appendChild(shakeStyle);
+
+/* ━━━━ MASTER RENDER ━━━━ */
+function renderAll(){
+  renderProjects();renderDashboard();renderToolLinks();renderRoadmap();
+  renderResources();renderKisansathi();renderSocials();
+  loadGallery();renderGallery();reobserve();
+}
+
+// Boot
+renderAll();
+if(isAdmin) applyAdminUI();
+</script>
+</body>
+</html>
