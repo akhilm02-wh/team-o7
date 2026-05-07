@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEAM O7 — Innovating with Vision, Rooted in Wisdom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #FFD700;
+  --gold-light: #FFE566;
+  --gold-dim: #C8A800;
+  --saffron: #4A90D9;
+  --saffron-dim: #2E6FA8;
+  --navy: #020C1E;
+  --navy-mid: #041228;
+  --navy-light: #071D3E;
+  --cosmic: #030F2A;
+  --purple: #1A4A8A;
+  --purple-glow: #2A6DD9;
+  --royal: #1E3A8A;
+  --royal-bright: #3B82F6;
+  --text-bright: #EEF2FF;
+  --text-muted: #8BA3CC;
+  --card-bg: rgba(7,29,62,0.75);
+  --border-gold: rgba(255,215,0,0.22);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--navy);
+  color: var(--text-bright);
+  font-family: 'Nunito', sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+/* ── Starfield ── */
+#starfield {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(ellipse at 20% 20%, rgba(30,58,138,0.3) 0%, transparent 55%),
+              radial-gradient(ellipse at 80% 70%, rgba(59,130,246,0.1) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 100%, rgba(255,215,0,0.05) 0%, transparent 40%),
+              var(--navy);
+}
+#starfield canvas { position: absolute; inset: 0; }
+
+/* ── Nav ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 4vw;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+  background: rgba(5,10,26,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-gold);
+}
+.nav-logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), var(--royal-bright));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: .1em;
+}
+.nav-links { display: flex; gap: 1.8rem; list-style: none; }
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: .82rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: color .25s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: .3s; }
+
+/* ── Section base ── */
+section {
+  position: relative; z-index: 1;
+  padding: 100px 6vw 80px;
+}
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: .72rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: .6rem;
+  display: flex; align-items: center; gap: .8rem;
+}
+.section-label::before { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--saffron); }
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-bright);
+  margin-bottom: 1rem;
+}
+.section-title span { background: linear-gradient(135deg, var(--gold), var(--royal-bright)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+.divider {
+  width: 80px; height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin: 1.2rem 0 2.5rem;
+}
+
+/* ──────────────── HERO ──────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 120px 6vw 80px;
+  overflow: hidden;
+}
+.hero-chakra {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(700px, 90vw);
+  height: min(700px, 90vw);
+  pointer-events: none;
+}
+.chakra-ring {
+  position: absolute; top: 50%; left: 50%;
+  border-radius: 50%;
+  border: 1px solid;
+  transform: translate(-50%, -50%);
+}
+.cr1 { width: 300px; height: 300px; border-color: rgba(255,215,0,.15); animation: spinCW 60s linear infinite; }
+.cr2 { width: 420px; height: 420px; border-color: rgba(59,130,246,.12); animation: spinCCW 80s linear infinite; }
+.cr3 { width: 560px; height: 560px; border-color: rgba(30,58,138,.18); animation: spinCW 100s linear infinite; }
+.cr4 { width: 700px; height: 700px; border-color: rgba(255,215,0,.06); animation: spinCCW 130s linear infinite; }
+.chakra-dot {
+  position: absolute; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px 2px var(--gold);
+}
+@keyframes spinCW  { to { transform: translate(-50%,-50%) rotate(360deg); } }
+@keyframes spinCCW { to { transform: translate(-50%,-50%) rotate(-360deg); } }
+
+.hero-om {
+  font-size: clamp(3rem, 8vw, 6rem);
+  color: var(--gold);
+  opacity: .12;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -52%);
+  font-family: serif;
+  animation: pulseGlow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes pulseGlow {
+  0%,100% { opacity: .1; text-shadow: 0 0 20px var(--gold); }
+  50% { opacity: .2; text-shadow: 0 0 60px var(--gold), 0 0 100px var(--royal-bright); }
+}
+
+.hero-content { position: relative; z-index: 2; }
+.hero-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: .75rem;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 1.2rem;
+  animation: fadeUp .8s ease both;
+}
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(3rem, 10vw, 7.5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .05em;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, var(--royal-bright) 70%, var(--gold) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 40px rgba(255,215,0,.35));
+  animation: fadeUp .8s .15s ease both;
+  margin-bottom: .4rem;
+}
+.hero-tagline {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-muted);
+  letter-spacing: .08em;
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+  animation: fadeUp .8s .3s ease both;
+  font-style: italic;
+  font-weight: 300;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: .7rem;
+  padding: .85rem 2.2rem;
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  font-family: 'Cinzel', serif;
+  font-size: .8rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  background: rgba(255,215,0,.05);
+  transition: all .3s;
+  animation: fadeUp .8s .45s ease both;
+}
+.hero-cta:hover { background: rgba(255,215,0,.12); box-shadow: 0 0 24px rgba(255,215,0,.2); }
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .5rem;
+  font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted);
+}
+.scroll-line { width: 1px; height: 48px; background: linear-gradient(180deg, var(--gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100% { opacity:.3; } 50% { opacity:1; } }
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:none; } }
+
+/* ──────────────── MISSION ──────────────── */
+#mission {
+  background: linear-gradient(180deg, transparent, rgba(4,18,40,0.6), transparent);
+}
+.mission-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+}
+.mission-star {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative;
+}
+.star-svg { width: min(320px, 80vw); filter: drop-shadow(0 0 30px rgba(255,215,0,.3)); animation: starFloat 5s ease-in-out infinite; }
+@keyframes starFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+.star-center-text {
+  position: absolute; text-align: center;
+  font-family: 'Cinzel', serif; font-size: .75rem; letter-spacing: .12em; color: var(--gold); line-height: 1.5;
+}
+.mission-text .value-list { list-style: none; margin-top: 1.5rem; }
+.mission-text .value-list li {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: .9rem 0; border-bottom: 1px solid var(--border-gold);
+  color: var(--text-bright); font-size: .95rem; line-height: 1.5;
+}
+.value-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: .1rem; }
+
+/* ──────────────── TEAM ──────────────── */
+#team { background: rgba(7,29,62,0.45); }
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.member-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s;
+}
+.member-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0); transition: transform .4s;
+}
+.member-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(255,215,0,.1); }
+.member-card:hover::before { transform: scaleX(1); }
+.member-avatar {
+  width: 70px; height: 70px; border-radius: 50%;
+  border: 2px solid var(--gold);
+  background: linear-gradient(135deg, var(--navy-light), var(--royal));
+  margin: 0 auto 1.2rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold);
+  box-shadow: 0 0 16px rgba(255,215,0,.2);
+}
+.member-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: .3rem;
+}
+.member-role {
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--saffron);
+}
+.member-symbol { font-size: 1.4rem; margin-bottom: .6rem; }
+
+/* ──────────────── DIRECTORY ──────────────── */
+#directory .dir-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.dir-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  padding: 1.8rem;
+  transition: box-shadow .3s;
+}
+.dir-card:hover { box-shadow: 0 8px 32px rgba(59,130,246,.15); }
+.dir-header {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.2rem; padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-gold);
+}
+.dir-avatar {
+  width: 46px; height: 46px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--royal), var(--navy-light));
+  border: 1.5px solid var(--gold-dim);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif; font-weight: 700; font-size: .9rem; color: var(--gold);
+  flex-shrink: 0;
+}
+.dir-name { font-family: 'Cinzel', serif; font-size: .95rem; font-weight: 600; color: var(--text-bright); }
+.dir-role { font-size: .72rem; color: var(--saffron); letter-spacing: .08em; text-transform: uppercase; }
+.dir-item {
+  display: flex; align-items: flex-start; gap: .7rem;
+  font-size: .84rem; color: var(--text-muted); margin-bottom: .6rem;
+}
+.dir-item-icon { font-size: 1rem; flex-shrink: 0; }
+.dir-item strong { color: var(--text-bright); }
+
+/* ──────────────── HOW TO WORK WITH ME ──────────────── */
+#workwith { background: rgba(4,18,40,0.55); }
+.workwith-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.ww-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  padding: 1.8rem;
+  transition: transform .3s;
+}
+.ww-card:hover { transform: translateY(-4px); }
+.ww-name { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: .3rem; }
+.ww-role { font-size: .72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.2rem; }
+.ww-items { list-style: none; }
+.ww-items li {
+  font-size: .88rem; color: var(--text-bright); padding: .45rem 0;
+  border-bottom: 1px solid rgba(255,215,0,.08);
+  display: flex; align-items: center; gap: .7rem;
+}
+.ww-items li:last-child { border: none; }
+.ww-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--royal-bright); flex-shrink: 0; }
+
+/* ──────────────── PROJECTS ──────────────── */
+#projects .proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.proj-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s;
+}
+.proj-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--royal-bright));
+  transform: scaleX(0); transform-origin: left; transition: transform .4s;
+}
+.proj-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(59,130,246,.15); }
+.proj-card:hover::after { transform: scaleX(1); }
+.proj-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .3rem .9rem; border-radius: 999px;
+  font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700;
+  margin-bottom: 1.2rem;
+}
+.badge-completed { background: rgba(34,197,94,.15); color: #4ade80; border: 1px solid rgba(34,197,94,.3); }
+.badge-ongoing   { background: rgba(59,130,246,.15); color: var(--royal-bright); border: 1px solid rgba(59,130,246,.3); }
+.proj-title { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; color: var(--text-bright); margin-bottom: .7rem; }
+.proj-desc { font-size: .88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.2rem; }
+.tech-stack { display: flex; flex-wrap: wrap; gap: .5rem; }
+.tech-tag {
+  padding: .25rem .7rem;
+  background: rgba(30,58,138,.3);
+  border: 1px solid rgba(59,130,246,.3);
+  border-radius: 2px;
+  font-size: .7rem;
+  color: #93c5fd;
+  letter-spacing: .05em;
+}
+
+/* ──────────────── DASHBOARD ──────────────── */
+#dashboard { background: rgba(7,29,62,0.45); }
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.dash-stat {
+  background: var(--card-bg);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  padding: 1.6rem;
+  text-align: center;
+}
+.dash-stat-num {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), var(--saffron));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  line-height: 1;
+  margin-bottom: .3rem;
+}
+.dash-stat-label { font-size: .78rem; color: var(--text-muted); letter-spacing: .12em; text-transform: uppercase; }
+.tool-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+.tool-link {
+  display: flex; align-items: center; gap: .8rem;
+  padding: 1rem 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--text-bright);
+  font-size: .88rem;
+  font-weight: 600;
+  transition: all .3s;
+  flex: 1 1 160px;
+  justify-content: center;
+}
+.tool-link:hover { border-color: var(--gold); color: var(--gold); box-shadow: 0 0 16px rgba(255,215,0,.1); }
+.tool-icon { font-size: 1.4rem; }
+
+/* ──────────────── LAUNCH ──────────────── */
+#launch {
+  background: linear-gradient(135deg, rgba(4,18,40,0.7), rgba(7,29,62,0.8));
+}
+.launch-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+.launch-visual {
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.launch-globe {
+  width: min(300px, 70vw); height: min(300px, 70vw); border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(59,130,246,.25), rgba(30,58,138,.2), var(--navy-mid));
+  border: 1px solid rgba(59,130,246,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(4rem, 12vw, 7rem);
+  box-shadow: 0 0 60px rgba(59,130,246,.2), inset 0 0 40px rgba(30,58,138,.15);
+  animation: globePulse 4s ease-in-out infinite;
+}
+@keyframes globePulse { 0%,100% { box-shadow: 0 0 60px rgba(59,130,246,.2), inset 0 0 40px rgba(30,58,138,.15); } 50% { box-shadow: 0 0 100px rgba(59,130,246,.35), inset 0 0 60px rgba(255,215,0,.08); } }
+.launch-url {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--royal-bright));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+.launch-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
+.launch-features { list-style: none; }
+.launch-features li {
+  display: flex; align-items: center; gap: .8rem;
+  color: var(--text-bright); font-size: .9rem; padding: .5rem 0;
+  border-bottom: 1px solid var(--border-gold);
+}
+.lf-icon { color: var(--gold); font-size: 1rem; }
+
+/* ──────────────── FUTURE ──────────────── */
+#future .roadmap {
+  position: relative;
+  padding-left: 2rem;
+}
+.roadmap::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(180deg, var(--gold), var(--royal-bright), transparent);
+}
+.roadmap-item {
+  position: relative;
+  padding: 0 0 2.5rem 2rem;
+}
+.roadmap-item::before {
+  content: '';
+  position: absolute; left: -5px; top: 6px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 12px var(--gold);
+}
+.roadmap-phase {
+  font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--saffron); margin-bottom: .4rem;
+  font-family: 'Cinzel', serif;
+}
+.roadmap-title {
+  font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700;
+  color: var(--text-bright); margin-bottom: .5rem;
+}
+.roadmap-desc { font-size: .88rem; color: var(--text-muted); line-height: 1.7; }
+.future-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+}
+
+/* ──────────────── GALLERY ──────────────── */
+#gallery .gallery-grid {
+  columns: 3; column-gap: 1rem;
+}
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border-gold);
+  position: relative;
+  cursor: pointer;
+}
+.gallery-placeholder {
+  background: var(--card-bg);
+  aspect-ratio: var(--ratio, 4/3);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: .6rem;
+  font-size: 2rem;
+  color: var(--text-muted);
+  transition: all .3s;
+  position: relative; overflow: hidden;
+}
+.gallery-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,215,0,.03), rgba(30,58,138,.08));
+}
+.gallery-item:hover .gallery-placeholder { transform: scale(1.02); }
+.gallery-caption {
+  font-size: .72rem; color: var(--text-muted); text-align: center;
+  padding: .4rem; background: rgba(5,10,26,.8);
+}
+
+/* ──────────────── RESOURCES ──────────────── */
+#resources { background: rgba(7,29,62,0.45); }
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.resource-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  padding: 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  text-decoration: none;
+  color: var(--text-bright);
+  transition: all .3s;
+}
+.resource-card:hover { border-color: var(--gold); transform: translateX(4px); box-shadow: 0 0 20px rgba(255,215,0,.08); }
+.resource-icon { font-size: 1.8rem; flex-shrink: 0; }
+.resource-name { font-family: 'Cinzel', serif; font-size: .9rem; font-weight: 600; margin-bottom: .2rem; }
+.resource-type { font-size: .72rem; color: var(--saffron); text-transform: uppercase; letter-spacing: .1em; }
+
+/* ──────────────── FOOTER ──────────────── */
+footer {
+  position: relative; z-index: 1;
+  background: rgba(5,10,26,.9);
+  border-top: 1px solid var(--border-gold);
+  padding: 4rem 6vw 2rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+.footer-brand .nav-logo { font-size: 1.6rem; display: block; margin-bottom: 1rem; }
+.footer-desc { font-size: .88rem; color: var(--text-muted); line-height: 1.7; max-width: 280px; }
+.footer-heading {
+  font-family: 'Cinzel', serif; font-size: .8rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;
+}
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: .7rem; }
+.footer-links a { color: var(--text-muted); text-decoration: none; font-size: .88rem; transition: color .2s; }
+.footer-links a:hover { color: var(--gold); }
+.social-links { display: flex; gap: 1rem; margin-top: 1.2rem; }
+.social-link {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid var(--border-gold);
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; font-size: 1rem;
+  transition: all .3s;
+}
+.social-link:hover { border-color: var(--gold); box-shadow: 0 0 12px rgba(255,215,0,.2); transform: translateY(-3px); }
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-gold);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: .78rem; color: var(--text-muted);
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-bottom span { color: var(--gold); }
+
+/* ──────────────── Reveal ──────────────── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s, transform .7s; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+
+/* ──────────────── Ornament ──────────────── */
+.ornament {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--gold);
+  opacity: .3;
+  margin: 0 0 2rem;
+  letter-spacing: .5rem;
+}
+
+/* ──────────────── WATERMARK ──────────────── */
+#watermark {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.wm-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6vw;
+  transform: rotate(-20deg);
+  width: 160%; opacity: 0.035;
+  user-select: none;
+}
+.wm-item {
+  display: flex; flex-direction: column; align-items: center; gap: .4rem;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(.55rem, 1.2vw, .85rem);
+  letter-spacing: .12em;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.wm-item svg { width: clamp(24px, 3vw, 42px); height: clamp(24px, 3vw, 42px); }
+
+/* ──────────────── Responsive ──────────────── */
+@media (max-width: 900px) {
+  .mission-inner, .launch-inner, .future-grid, .footer-grid { grid-template-columns: 1fr; }
+  .gallery-grid { columns: 2; }
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(5,10,26,.97); padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border-gold); }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+}
+@media (max-width: 600px) {
+  section { padding: 70px 5vw 60px; }
+  .gallery-grid { columns: 1; }
+  .tool-links { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- Starfield -->
+<div id="starfield"><canvas id="stars"></canvas></div>
+
+<!-- Watermark -->
+<div id="watermark">
+  <div class="wm-inner" id="wmInner"></div>
+</div>
+
+<nav>
+  <div class="nav-logo">⊕ O7</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#launch">Launch</a></li>
+    <li><a href="#future">Vision</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero">
+  <div class="hero-chakra">
+    <div class="chakra-ring cr1"></div>
+    <div class="chakra-ring cr2"></div>
+    <div class="chakra-ring cr3"></div>
+    <div class="chakra-ring cr4"></div>
+  </div>
+  <div class="hero-om">ॐ</div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">॥ Convergence of Minds ॥</p>
+    <h1 class="hero-title">TEAM O7</h1>
+    <p class="hero-tagline">"Innovating with Vision, Rooted in Wisdom"</p>
+    <a href="#mission" class="hero-cta">⬇ &nbsp; Discover Our Path</a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ══════════════ MISSION ══════════════ -->
+<section id="mission">
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="mission-inner">
+    <div class="mission-text reveal">
+      <p class="section-label">Our North Star</p>
+      <h2 class="section-title">The <span>Sacred Mission</span></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Empowering real-world problem solving using intelligent systems for agriculture and finance — guided by ancient wisdom, powered by modern technology.</p>
+      <ul class="value-list">
+        <li><span class="value-icon">🌾</span><span>Building digital bridges for India's farming communities through accessible, AI-first tools.</span></li>
+        <li><span class="value-icon">🛡️</span><span>Protecting financial systems with intelligent fraud detection and pattern recognition engines.</span></li>
+        <li><span class="value-icon">💡</span><span>Transforming complex problems into elegant, human-centred solutions.</span></li>
+        <li><span class="value-icon">🤝</span><span>Collaborating with transparency, curiosity, and deep respect for stakeholders.</span></li>
+      </ul>
+    </div>
+    <div class="mission-star reveal reveal-delay-2">
+      <svg class="star-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="sg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFD700" stop-opacity=".9"/>
+            <stop offset="100%" stop-color="#FF9933" stop-opacity=".2"/>
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- 8-pointed star -->
+        <polygon points="150,20 165,115 240,60 175,140 260,155 175,165 240,245 165,185 150,280 135,185 60,245 125,165 40,155 125,140 60,60 135,115"
+          fill="url(#sg)" opacity=".2" filter="url(#glow)"/>
+        <polygon points="150,40 162,120 225,75 168,145 250,155 168,163 225,225 162,175 150,260 138,175 75,225 132,163 50,155 132,145 75,75 138,120"
+          fill="none" stroke="#FFD700" stroke-width="1" opacity=".6" filter="url(#glow)"/>
+        <!-- Inner octagon -->
+        <polygon points="150,95 185,110 205,145 190,180 155,195 115,180 95,145 110,110"
+          fill="rgba(255,153,51,0.1)" stroke="#FF9933" stroke-width="1" opacity=".7"/>
+        <!-- Center dot -->
+        <circle cx="150" cy="150" r="12" fill="#FFD700" opacity=".9" filter="url(#glow)"/>
+        <circle cx="150" cy="150" r="4" fill="#FFF"/>
+        <!-- Decorative dots on tips -->
+        <circle cx="150" cy="36" r="3" fill="#FFD700" opacity=".8"/>
+        <circle cx="150" cy="264" r="3" fill="#FFD700" opacity=".8"/>
+        <circle cx="36" cy="150" r="3" fill="#FFD700" opacity=".8"/>
+        <circle cx="264" cy="150" r="3" fill="#FFD700" opacity=".8"/>
+        <circle cx="70" cy="70" r="3" fill="#FF9933" opacity=".7"/>
+        <circle cx="230" cy="70" r="3" fill="#FF9933" opacity=".7"/>
+        <circle cx="70" cy="230" r="3" fill="#FF9933" opacity=".7"/>
+        <circle cx="230" cy="230" r="3" fill="#FF9933" opacity=".7"/>
+        <!-- Sanskrit-style arc text placeholder -->
+        <circle cx="150" cy="150" r="58" fill="none" stroke="rgba(255,215,0,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+      </svg>
+      <div class="star-center-text">DHARMA<br>KARMA<br>MOKSHA</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ TEAM ══════════════ -->
+<section id="team">
+  <div class="ornament">⚡ ⚡ ⚡</div>
+  <p class="section-label">The Chosen Five</p>
+  <h2 class="section-title">Meet the <span>Guardians</span></h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">Each member carries the spark of a celestial archetype — together forming an unstoppable force of creation and innovation.</p>
+
+  <div class="team-grid">
+    <div class="member-card reveal">
+      <div class="member-symbol">🔱</div>
+      <div class="member-avatar">AM</div>
+      <div class="member-name">Akhil Muppaneni</div>
+    </div>
+    <div class="member-card reveal reveal-delay-1">
+      <div class="member-symbol">🌙</div>
+      <div class="member-avatar">AK</div>
+      <div class="member-name">Adiba Khan</div>
+    </div>
+    <div class="member-card reveal reveal-delay-2">
+      <div class="member-symbol">🌸</div>
+      <div class="member-avatar">AV</div>
+      <div class="member-name">Anushka Vinchurkar</div>
+    </div>
+    <div class="member-card reveal reveal-delay-3">
+      <div class="member-symbol">⚡</div>
+      <div class="member-avatar">VG</div>
+      <div class="member-name">Vaibhav Gedam</div>
+    </div>
+    <div class="member-card reveal reveal-delay-4">
+      <div class="member-symbol">🪷</div>
+      <div class="member-avatar">KS</div>
+      <div class="member-name">Kalyani Sewaiwar</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ DIRECTORY ══════════════ -->
+<section id="directory">
+  <div class="ornament">◈ ◈ ◈</div>
+  <p class="section-label">Celestial Registry</p>
+  <h2 class="section-title">Team <span>Directory</span></h2>
+  <div class="divider"></div>
+
+  <div class="dir-grid">
+    <div class="dir-card reveal">
+      <div class="dir-header">
+        <div class="dir-avatar">AM</div>
+        <div><div class="dir-name">Akhil Muppaneni</div></div>
+      </div>
+      <div class="dir-item"><span class="dir-item-icon">✉️</span><span><strong>muppaneniakhil_6788cs24@nit.edu.in</strong></span></div>
+      <div class="dir-item"><span class="dir-item-icon">💬</span><span>Slack · Email · Calls</span></div>
+    </div>
+    <div class="dir-card reveal reveal-delay-1">
+      <div class="dir-header">
+        <div class="dir-avatar">AK</div>
+        <div><div class="dir-name">Adiba Khan</div></div>
+      </div>
+      <div class="dir-item"><span class="dir-item-icon">✉️</span><span><strong>Khanadiba_6571cs24@nit.edu.in</strong></span></div>
+      <div class="dir-item"><span class="dir-item-icon">💬</span><span>Email · GitHub · Slack</span></div>
+    </div>
+    <div class="dir-card reveal reveal-delay-2">
+      <div class="dir-header">
+        <div class="dir-avatar">AV</div>
+        <div><div class="dir-name">Anushka Vinchurkar</div></div>
+      </div>
+      <div class="dir-item"><span class="dir-item-icon">✉️</span><span><strong>Vinchurkaranushka_6661cs24@nit.edu.in</strong></span></div>
+      <div class="dir-item"><span class="dir-item-icon">💬</span><span>Slack · Notion · Email</span></div>
+    </div>
+    <div class="dir-card reveal reveal-delay-3">
+      <div class="dir-header">
+        <div class="dir-avatar">VG</div>
+        <div><div class="dir-name">Vaibhav Gedam</div></div>
+      </div>
+      <div class="dir-item"><span class="dir-item-icon">✉️</span><span><strong>gedamvaibhav_6613cs24@nit.edu.in</strong></span></div>
+      <div class="dir-item"><span class="dir-item-icon">💬</span><span>GitHub · Slack · Email</span></div>
+    </div>
+    <div class="dir-card reveal reveal-delay-4">
+      <div class="dir-header">
+        <div class="dir-avatar">KS</div>
+        <div><div class="dir-name">Kalyani Sewaiwar</div></div>
+      </div>
+      <div class="dir-item"><span class="dir-item-icon">✉️</span><span><strong>sewaiwarkalyani_6749cs24@nit.edu.in</strong></span></div>
+      <div class="dir-item"><span class="dir-item-icon">💬</span><span>Figma · Slack · Email</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ HOW TO WORK WITH ME ══════════════ -->
+<section id="workwith">
+  <div class="ornament">🪬 🪬 🪬</div>
+  <p class="section-label">Collaboration Sutras</p>
+  <h2 class="section-title">How to Work <span>With Us</span></h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">Each guardian has a preferred channel of communication. Respect it and our collaboration will flow like the Ganges — clear, purposeful, unstoppable.</p>
+
+  <div class="workwith-grid">
+    <div class="ww-card reveal">
+      <div class="ww-name">Akhil Muppaneni</div>
+      <ul class="ww-items">
+        <li><span class="ww-dot"></span>Slack for quick alignment & decisions</li>
+        <li><span class="ww-dot"></span>Email for strategy & formal updates</li>
+        <li><span class="ww-dot"></span>Calls for team brainstorming sessions</li>
+        <li><span class="ww-dot"></span>Respond within 2 hours on weekdays</li>
+        <li><span class="ww-dot"></span>📧 muppaneniakhil_6788cs24@nit.edu.in</li>
+      </ul>
+    </div>
+    <div class="ww-card reveal reveal-delay-1">
+      <div class="ww-name">Adiba Khan</div>
+      <ul class="ww-items">
+        <li><span class="ww-dot"></span>GitHub issues for technical tasks</li>
+        <li><span class="ww-dot"></span>Email for deep technical discussions</li>
+        <li><span class="ww-dot"></span>Slack for quick questions & blockers</li>
+        <li><span class="ww-dot"></span>Async-first communication preferred</li>
+        <li><span class="ww-dot"></span>📧 Khanadiba_6571cs24@nit.edu.in</li>
+      </ul>
+    </div>
+    <div class="ww-card reveal reveal-delay-2">
+      <div class="ww-name">Anushka Vinchurkar</div>
+      <ul class="ww-items">
+        <li><span class="ww-dot"></span>Notion for structured data handoffs</li>
+        <li><span class="ww-dot"></span>Slack for day-to-day coordination</li>
+        <li><span class="ww-dot"></span>Calls for data review & analysis walks</li>
+        <li><span class="ww-dot"></span>Document everything before meetings</li>
+        <li><span class="ww-dot"></span>📧 Vinchurkaranushka_6661cs24@nit.edu.in</li>
+      </ul>
+    </div>
+    <div class="ww-card reveal reveal-delay-3">
+      <div class="ww-name">Vaibhav Gedam</div>
+      <ul class="ww-items">
+        <li><span class="ww-dot"></span>GitHub PRs for code collaboration</li>
+        <li><span class="ww-dot"></span>Slack for urgent blockers only</li>
+        <li><span class="ww-dot"></span>Email for non-urgent discussions</li>
+        <li><span class="ww-dot"></span>Ticket-first workflow preferred</li>
+        <li><span class="ww-dot"></span>📧 gedamvaibhav_6613cs24@nit.edu.in</li>
+      </ul>
+    </div>
+    <div class="ww-card reveal reveal-delay-4">
+      <div class="ww-name">Kalyani Sewaiwar</div>
+      <ul class="ww-items">
+        <li><span class="ww-dot"></span>Figma comments for design feedback</li>
+        <li><span class="ww-dot"></span>Slack for quick UX clarifications</li>
+        <li><span class="ww-dot"></span>Calls for design sprint planning</li>
+        <li><span class="ww-dot"></span>Share reference visuals always</li>
+        <li><span class="ww-dot"></span>📧 sewaiwarkalyani_6749cs24@nit.edu.in</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PROJECTS ══════════════ -->
+<section id="projects">
+  <div class="ornament">⚔️ ⚔️ ⚔️</div>
+  <p class="section-label">Artifacts of Power</p>
+  <h2 class="section-title">Our <span>Sacred Projects</span></h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">Forged in the crucible of collaboration — these are our contributions to a smarter, fairer world.</p>
+
+  <div class="proj-grid">
+    <div class="proj-card reveal">
+      <div class="proj-badge badge-completed">✅ Completed</div>
+      <div class="proj-title">Fraudulent Insurance Claim Identifier</div>
+      <div class="proj-desc">An AI-powered system that detects fraudulent insurance claims by analysing patterns, anomalies, and behavioural signals in claim data — reducing losses and protecting genuine claimants.</div>
+      <div class="tech-stack">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Scikit-learn</span>
+        <span class="tech-tag">XGBoost</span>
+        <span class="tech-tag">FastAPI</span>
+        <span class="tech-tag">PostgreSQL</span>
+      </div>
+    </div>
+    <div class="proj-card reveal reveal-delay-2">
+      <div class="proj-badge badge-ongoing">🔄 Ongoing</div>
+      <div class="proj-title">Invoice Fraud Detector</div>
+      <div class="proj-desc">A machine learning pipeline that identifies duplicate, inflated, or forged invoices in enterprise billing systems — bringing divine clarity to financial chaos with real-time alerts and audit trails.</div>
+      <div class="tech-stack">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">NLP</span>
+        <span class="tech-tag">PyTorch</span>
+        <span class="tech-tag">React</span>
+        <span class="tech-tag">MongoDB</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ DASHBOARD ══════════════ -->
+<section id="dashboard">
+  <div class="ornament">📊 📊 📊</div>
+  <p class="section-label">Command Centre</p>
+  <h2 class="section-title">Project <span>Dashboard</span></h2>
+  <div class="divider"></div>
+
+  <div class="dash-grid">
+    <div class="dash-stat reveal">
+      <div class="dash-stat-num">2</div>
+      <div class="dash-stat-label">Total Projects</div>
+    </div>
+    <div class="dash-stat reveal reveal-delay-1">
+      <div class="dash-stat-num">1</div>
+      <div class="dash-stat-label">Completed</div>
+    </div>
+    <div class="dash-stat reveal reveal-delay-2">
+      <div class="dash-stat-num">1</div>
+      <div class="dash-stat-label">In Progress</div>
+    </div>
+    <div class="dash-stat reveal reveal-delay-3">
+      <div class="dash-stat-num">5</div>
+      <div class="dash-stat-label">Team Members</div>
+    </div>
+  </div>
+
+  <p class="section-subtitle">Track our progress and collaborate across tools:</p>
+  <div class="tool-links">
+    <a href="#" class="tool-link"><span class="tool-icon">📋</span> Trello Board</a>
+    <a href="#" class="tool-link"><span class="tool-icon">🎯</span> Jira Tickets</a>
+    <a href="#" class="tool-link"><span class="tool-icon">📁</span> Asana Tasks</a>
+    <a href="#" class="tool-link"><span class="tool-icon">📝</span> Notion Docs</a>
+    <a href="#" class="tool-link"><span class="tool-icon">🔗</span> GitHub Repos</a>
+  </div>
+</section>
+
+<!-- ══════════════ LAUNCH ══════════════ -->
+<section id="launch">
+  <div class="ornament">🌾 🌾 🌾</div>
+  <div class="launch-inner">
+    <div class="launch-visual reveal">
+      <div class="launch-globe">🌾</div>
+    </div>
+    <div class="launch-text reveal reveal-delay-2">
+      <p class="section-label">Current Launch</p>
+      <div class="launch-url">kisansathi.in</div>
+      <div class="divider"></div>
+      <p class="launch-desc">A platform aimed at empowering farmers with digital solutions — from crop advisory and weather intelligence to market price access and financial inclusion tools.</p>
+      <ul class="launch-features">
+        <li><span class="lf-icon">🌱</span> Real-time crop advisory & disease detection</li>
+        <li><span class="lf-icon">☁️</span> Hyperlocal weather intelligence</li>
+        <li><span class="lf-icon">💰</span> Market price aggregation & alerts</li>
+        <li><span class="lf-icon">📱</span> Mobile-first, vernacular support</li>
+        <li><span class="lf-icon">🤝</span> Direct connect with agri-input suppliers</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FUTURE ══════════════ -->
+<section id="future">
+  <div class="ornament">🔮 🔮 🔮</div>
+  <div class="future-grid">
+    <div class="reveal">
+      <p class="section-label">The Cosmic Roadmap</p>
+      <h2 class="section-title">Our <span>Vision Forward</span></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">The stars have aligned. Our path stretches beyond the horizon — here is what the seers have foretold for Team O7.</p>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="roadmap">
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Phase I · Now</div>
+          <div class="roadmap-title">Establish the Foundation</div>
+          <div class="roadmap-desc">Complete kisansathi.in MVP. Ship Invoice Fraud Detector v1. Build internal tooling and CI/CD pipelines.</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Phase II · Q3 2026</div>
+          <div class="roadmap-title">Scale Agriculture Tech</div>
+          <div class="roadmap-desc">Expand kisansathi.in to 3 new states. Integrate satellite imagery for crop health monitoring. Launch vernacular voice interface.</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Phase III · Q4 2026</div>
+          <div class="roadmap-title">AI Solutions Expansion</div>
+          <div class="roadmap-desc">Build a generative AI layer for automated financial auditing. Explore LLM-based advisory tools for smallholder farmers.</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Phase IV · 2027</div>
+          <div class="roadmap-title">Pan-India Fraud Detection Suite</div>
+          <div class="roadmap-desc">Unify insurance, invoice, and identity fraud detection into a single enterprise-grade SaaS platform. Open API ecosystem.</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Horizon · Beyond</div>
+          <div class="roadmap-title">Global Impact</div>
+          <div class="roadmap-desc">Take our agriculture-tech playbook to Southeast Asia & Africa. Build the next generation of ethical AI for the underserved.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ GALLERY ══════════════ -->
+<section id="gallery">
+  <div class="ornament">🖼 🖼 🖼</div>
+  <p class="section-label">Visual Chronicles</p>
+  <h2 class="section-title">Photo <span>Gallery</span></h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">Moments captured from our journey — sprints, demos, team hangouts, and breakthrough milestones.</p>
+
+  <div class="gallery-grid reveal">
+    <div class="gallery-item"><div class="gallery-placeholder" style="--ratio:4/3">👥<div style="font-size:.8rem;color:var(--text-muted)">Team Photo</div></div><div class="gallery-caption">Team O7 — Kickoff Day</div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="--ratio:3/4">💻<div style="font-size:.8rem;color:var(--text-muted)">Hackathon</div></div><div class="gallery-caption">48-Hour Sprint</div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="--ratio:16/9">🌾<div style="font-size:.8rem;color:var(--text-muted)">Field Visit</div></div><div class="gallery-caption">Farmer Outreach — Pune</div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="--ratio:1/1">🏆<div style="font-size:.8rem;color:var(--text-muted)">Award</div></div><div class="gallery-caption">Best Innovation Award</div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="--ratio:4/3">📊<div style="font-size:.8rem;color:var(--text-muted)">Demo Day</div></div><div class="gallery-caption">Demo Day Presentation</div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="--ratio:3/2">🖥️<div style="font-size:.8rem;color:var(--text-muted)">Dashboard</div></div><div class="gallery-caption">kisansathi.in Dashboard</div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="--ratio:4/3">☕<div style="font-size:.8rem;color:var(--text-muted)">Chai & Code</div></div><div class="gallery-caption">Late-night builds</div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="--ratio:16/9">🎤<div style="font-size:.8rem;color:var(--text-muted)">Conference</div></div><div class="gallery-caption">TechFest 2025 Talk</div></div>
+  </div>
+  <p style="text-align:center; color:var(--text-muted); font-size:.82rem; margin-top:1.5rem;">📸 Upload your photos to see them here — replace placeholders with real memories.</p>
+</section>
+
+<!-- ══════════════ RESOURCES ══════════════ -->
+<section id="resources">
+  <div class="ornament">📚 📚 📚</div>
+  <p class="section-label">Sacred Scriptures</p>
+  <h2 class="section-title">Resource <span>Library</span></h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">Our shared repository of wisdom — templates, brand assets, and tools that power our craft.</p>
+
+  <div class="resource-grid">
+    <a href="#" class="resource-card reveal">
+      <span class="resource-icon">🎨</span>
+      <div><div class="resource-name">Brand Assets</div><div class="resource-type">Logos · Colors · Typography</div></div>
+    </a>
+    <a href="#" class="resource-card reveal reveal-delay-1">
+      <span class="resource-icon">📄</span>
+      <div><div class="resource-name">Project Templates</div><div class="resource-type">PRDs · Sprint · Retro</div></div>
+    </a>
+    <a href="#" class="resource-card reveal reveal-delay-2">
+      <span class="resource-icon">🤖</span>
+      <div><div class="resource-name">ML Model Registry</div><div class="resource-type">Versioned Models · Docs</div></div>
+    </a>
+    <a href="#" class="resource-card reveal reveal-delay-3">
+      <span class="resource-icon">🎨</span>
+      <div><div class="resource-name">Figma Design System</div><div class="resource-type">Components · Styles</div></div>
+    </a>
+    <a href="#" class="resource-card reveal reveal-delay-4">
+      <span class="resource-icon">📊</span>
+      <div><div class="resource-name">Data Dictionaries</div><div class="resource-type">Schema · Glossary</div></div>
+    </a>
+    <a href="#" class="resource-card reveal">
+      <span class="resource-icon">🔧</span>
+      <div><div class="resource-name">Dev Toolchain</div><div class="resource-type">VS Code · GitHub · Docker</div></div>
+    </a>
+    <a href="#" class="resource-card reveal reveal-delay-1">
+      <span class="resource-icon">📖</span>
+      <div><div class="resource-name">Research Papers</div><div class="resource-type">AgriTech · FinTech AI</div></div>
+    </a>
+    <a href="#" class="resource-card reveal reveal-delay-2">
+      <span class="resource-icon">🧪</span>
+      <div><div class="resource-name">Testing Playbooks</div><div class="resource-type">Unit · Integration · UAT</div></div>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="nav-logo">⊕ TEAM O7</span>
+      <p class="footer-desc">Innovating with Vision, Rooted in Wisdom. Five minds. One mission. Building intelligent systems for agriculture and finance.</p>
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+        <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Navigate</div>
+      <ul class="footer-links">
+        <li><a href="#mission">Our Mission</a></li>
+        <li><a href="#team">Team Members</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#launch">kisansathi.in</a></li>
+        <li><a href="#future">Vision 2027</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:hello@teamo7.in">hello@teamo7.in</a></li>
+        <li><a href="#">Team Slack</a></li>
+        <li><a href="#">GitHub Org</a></li>
+        <li><a href="#">Submit a Bug</a></li>
+      </ul>
+      <div style="margin-top:1.5rem">
+        <div class="footer-heading">Location</div>
+        <p style="font-size:.85rem;color:var(--text-muted)">Pune, Maharashtra<br>India 🇮🇳</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 <span>TEAM O7</span>. All rights reserved.</span>
+    <span style="font-family:'Cinzel',serif;letter-spacing:.1em">॥ सत्यमेव जयते ॥</span>
+  </div>
+</footer>
+
+<script>
+// ── Starfield ──
+(function(){
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let W, H, stars = [];
+  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  function init(){
+    stars = [];
+    for(let i=0;i<200;i++) stars.push({
+      x: Math.random()*W, y: Math.random()*H,
+      r: Math.random()*1.5+.3,
+      o: Math.random()*.8+.1,
+      s: Math.random()*.3+.05,
+      d: Math.random()*Math.PI*2
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    stars.forEach(s=>{
+      s.d += s.s*.01;
+      const twinkle = s.o + Math.sin(s.d)*.2;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(255,235,180,${Math.max(0,twinkle)})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', ()=>{ resize(); init(); });
+  resize(); init(); draw();
+})();
+
+// ── Watermark ──
+(function(){
+  const wm = document.getElementById('wmInner');
+  const logo = `<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="30,4 34,22 48,12 38,26 56,30 38,34 48,48 34,38 30,56 26,38 12,48 22,34 4,30 22,26 12,12 26,22" fill="#FFD700" opacity="0.9"/>
+    <circle cx="30" cy="30" r="6" fill="#FFD700"/>
+    <circle cx="30" cy="30" r="2.5" fill="#fff"/>
+  </svg>`;
+  const cols = 4, rows = 8;
+  for(let i = 0; i < cols * rows; i++){
+    wm.innerHTML += `<div class="wm-item">${logo}<span>TEAM O7</span></div>`;
+  }
+})();
+
+// ── Nav toggle ──
+document.getElementById('navToggle').addEventListener('click', function(){
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+// ── Scroll reveal ──
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
